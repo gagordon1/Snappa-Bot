@@ -2,8 +2,6 @@
 
 class SnappaLeaderboard:
 
-
-
     def get_leaderboard(self, n):
         """Get the top n players in the leaderboard along with their overall
         record
