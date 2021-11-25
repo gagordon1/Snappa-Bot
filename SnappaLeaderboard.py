@@ -1,8 +1,25 @@
+from SnappaLeaderboardTextGenerator import generate_leaderboard_string
+
 
 
 class SnappaLeaderboard:
 
-    def get_leaderboard(self, n):
+    def get_player_history(self, name : str):
+        """Gets the history of a player's snappa games
+
+        Parameters
+        ----------
+        name : String
+            Name of the player
+
+        Returns
+        -------
+        String
+            A list of the player's snappa games
+
+        """
+
+    def get_leaderboard(self, n : int):
         """Get the top n players in the leaderboard along with their overall
         record
 
@@ -19,7 +36,7 @@ class SnappaLeaderboard:
         """
 
 
-    def add_player(self, name):
+    def add_player(self, name : str):
         """Add a player to the leaderboard system
 
         Parameters
@@ -29,8 +46,8 @@ class SnappaLeaderboard:
 
         Returns
         -------
-        Boolean
-            True if player successfully added, false otherwise
+        String
+            Message describing if the player was added correctly or not
 
         """
 
@@ -41,8 +58,8 @@ class SnappaLeaderboard:
 
         Returns
         -------
-        Boolean
-            True if successfully logged, false otherwise
+        String
+            Message showing the result of the outcome of a snappa game
 
         """
 
@@ -56,3 +73,7 @@ class SnappaLeaderboard:
             Randomly chosen message from a set of phrases
 
         """
+
+if __name__ == '__main__':
+
+    pass
