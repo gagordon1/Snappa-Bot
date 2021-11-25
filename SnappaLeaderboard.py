@@ -18,6 +18,7 @@ class SnappaLeaderboard:
             A list of the player's snappa games
 
         """
+        pass
 
     def get_leaderboard(self, n : int):
         """Get the top n players in the leaderboard along with their overall
@@ -34,6 +35,7 @@ class SnappaLeaderboard:
             The top n players in the leaderboard along with their record
 
         """
+        pass
 
 
     def add_player(self, name : str):
@@ -50,10 +52,16 @@ class SnappaLeaderboard:
             Message describing if the player was added correctly or not
 
         """
+        pass
 
 
 
-    def log_score(self):
+    def log_score(self, winner1 : str,
+        winner2 :str,
+        loser1 : str,
+        loser2 : str,
+        winner_score : int,
+        loser_score : int):
         """Log a game to the system
 
         Returns
@@ -62,6 +70,7 @@ class SnappaLeaderboard:
             Message showing the result of the outcome of a snappa game
 
         """
+        pass
 
 
     def generate_message(self):
@@ -73,7 +82,7 @@ class SnappaLeaderboard:
             Randomly chosen message from a set of phrases
 
         """
+        pass
 
 if __name__ == '__main__':
-
     pass

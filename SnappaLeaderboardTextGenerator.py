@@ -13,10 +13,16 @@ def generate_leaderboard_string(data: list):
         A string of leaderboards matching the format described in messages.txt
 
     """
-    return tabulate(data, headers = ["Name", "ELO", "Wins", "Losses"])
+    data_sorted = sorted(data, key = lambda x : x[1], reverse = True) #sort on ELO
+    i = 1
+    for entry in data_sorted:
+        rank = i
+        entry.insert(0, rank)
+        i += 1
+    return tabulate(data_sorted, headers = ["Rank","Name", "ELO", "Wins", "Losses"])
 
 
 if __name__ == '__main__':
-    data = [['Garrett Gordon', 69.1, 5, 6], ['Andrei Dumitrescu', 69.3, 4, 9]]
+    data = [['Garrett Gordon', 701, 5, 6], ['Andrei Dumitrescu', 700, 4, 9]]
     out = generate_leaderboard_string(data)
     print(out)
