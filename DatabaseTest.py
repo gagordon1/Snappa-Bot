@@ -3,6 +3,7 @@ from Databases.DictionaryDatabase import DictionaryDatabase
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 
 def addPlayerTest1(db):
+    print("Testing add player...")
     response = db.add_player("Garrett", 1500, 0 , 0)
     if response != "Player Garrett successfully added!":
         return False
@@ -32,6 +33,7 @@ def addPlayerTest1(db):
 
 
 def updatePlayerDataTest1(db):
+    print("Testing update player data...")
     response = db.updatePlayerData("Garrett", 1502, 1, 1)
     if response != "Player data successfully updated!":
         return False
@@ -58,6 +60,7 @@ def updatePlayerDataTest1(db):
     return True
 
 def getLeaderboardTest1(db):
+    print("Testing get leaderboard...")
     expected = [["Andrei", 1502, 1,1], ["Garrett", 1502,1,1], ["Noah", 1498,1,1], ["Sebastian", 1498,1,1]]
     result = db.get_leaderboard()
     for l in expected:
@@ -67,6 +70,7 @@ def getLeaderboardTest1(db):
 
 
 def logGameTest1(db):
+    print("Testing log game...")
     db.add_player("Andrei", 1500, 0, 0)
     db.add_player("Sebastian", 1500, 0, 0)
 
