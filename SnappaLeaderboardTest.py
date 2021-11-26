@@ -5,10 +5,8 @@ from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 from Databases.DictionaryDatabase import DictionaryDatabase
 from tabulate import tabulate
 from elosports.elo import Elo
+
 INITIAL_ELO = 1500
-SPREADSHEET_NAME = "Snappa Database"
-PLAYER_SHEET_INDEX = 2
-GAME_SHEET_INDEX = 3
 INITIAL_ELO_Ws_Ls = [1500,0,0]
 
 
@@ -94,11 +92,13 @@ def getPlayerHistoryTest1(db):
 if __name__ == '__main__':
 
     ### GOOGLE SHEETS TEST ####
-    # db = GoogleSheetsDatabase(test = True)
+    db = GoogleSheetsDatabase(test = True)
 
     ### NAIVE DATABASE TEST ###
-    db = DictionaryDatabase()
+    # db = DictionaryDatabase()
 
+    print("\n")
+    print("Testing Snappa Leaderboard...\n")
     for name, test in [
             ["Add Player Test 1", addPlayerTest1],
             ["Log Score Test 1", logScoreTest1],
