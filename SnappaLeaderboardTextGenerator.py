@@ -1,19 +1,22 @@
 from tabulate import tabulate
 
-def generate_leaderboard_string(data: list):
+def generate_leaderboard_string(data: list, n : int):
     """Generates a leaderboard string given a list of player data
 
     Parameters
     ----------
-    data : [[name : str, ELO : float, number of wins : int, number of losses : int]]
+    n : int
+        number of entries to return
 
+    data : [[name : str, ELO : float, number of wins : int, number of losses : int]]
+        Player data
     Returns
     -------
     String
         A string of leaderboards matching the format described in messages.txt
 
     """
-    data_sorted = sorted(data, key = lambda x : x[1], reverse = True) #sort on ELO
+    data_sorted = sorted(data, key = lambda x : x[1], reverse = True)[:n] #sort on ELO
     i = 1
     for entry in data_sorted:
         rank = i

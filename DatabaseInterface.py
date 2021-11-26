@@ -74,7 +74,7 @@ class Database:
         """
         pass
 
-    def get_leaderboard(self, n : int):
+    def get_leaderboard(self):
         """Gets all player data from the leaderboard
 
         Returns

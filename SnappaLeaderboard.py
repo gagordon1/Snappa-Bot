@@ -1,4 +1,5 @@
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string
+from tabulate import tabulate
 
 class SnappaLeaderboard:
 
@@ -36,7 +37,12 @@ class SnappaLeaderboard:
             The top n players in the leaderboard along with their record
 
         """
-        pass
+        try:
+            entries = self.database.get_leaderboard()
+            return generate_leaderboard_string(entries, n)
+        except Exception:
+            return "Leaderboard could not be accessed!".format(name)
+
 
 
     def add_player(self, name : str):
@@ -54,9 +60,10 @@ class SnappaLeaderboard:
 
         """
         try:
-            database.add_player(name)
+            self.database.add_player(name)
+            return "Player {} successfully added to the database!".format(name)
         except Exception:
-            return "Name {} could not be added to the database".format(name)
+            return "Player {} could not be added to the database!".format(name)
 
 
 

@@ -141,3 +141,5 @@ if __name__ == '__main__':
             print(name + " passed!")
         else:
             print(name + " failed!")
+    initialize_game_log()
+    initialize_player_sheet()
