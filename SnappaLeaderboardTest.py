@@ -68,9 +68,10 @@ def logScoreTest1():
     response = leaderboard.log_score(*names1, 7, 5)
     print(response)
 
-    print(names2, 3, 7, ":")
-    response = leaderboard.log_score(*names2, 3, 7)
-    print(response)
+    for i in range(3):
+        print(names2, 3, 7, ":")
+        response = leaderboard.log_score(*names2, 3, 7)
+        print(response)
 
     return True
 
