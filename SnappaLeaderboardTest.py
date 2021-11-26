@@ -1,8 +1,8 @@
 
 from SnappaLeaderboard import SnappaLeaderboard
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
-from GoogleSheetsDatabase import GoogleSheetsDatabase
-from DictionaryDatabase import DictionaryDatabase
+from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
+from Databases.DictionaryDatabase import DictionaryDatabase
 from tabulate import tabulate
 from elosports.elo import Elo
 INITIAL_ELO = 1500

@@ -1,6 +1,6 @@
 from time import time
-from DictionaryDatabase import DictionaryDatabase
-from GoogleSheetsDatabase import GoogleSheetsDatabase
+from Databases.DictionaryDatabase import DictionaryDatabase
+from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 
 def addPlayerTest1(db):
     response = db.add_player("Garrett", 1500, 0 , 0)
@@ -99,15 +99,21 @@ def logGameTest1(db):
 
 
 if __name__ == '__main__':
-    db = DictionaryDatabase()
-    # db = GoogleSheetsDatabase(test = True)
-    for name, test in [
-        ["Add Player Test 1", addPlayerTest1],
-        ["Log Game Test 1", logGameTest1],
-        ["Update Player Data Test 1", updatePlayerDataTest1],
-        ["Get Leaderboard Test 1", getLeaderboardTest1]
-    ]:
-        if test(db):
-            print(name + " passed!")
-        else:
-            print(name + " failed!")
+    dictionary_db = DictionaryDatabase()
+    google_sheets_db = GoogleSheetsDatabase(test = True)
+    for db_name, db in [
+                ("Dictionary Database",dictionary_db),
+                ("Google Sheets Database", google_sheets_db)
+            ]:
+        print("\n")
+        print("Testing {}...".format(db_name))
+        for name, test in [
+            ["Add Player Test 1", addPlayerTest1],
+            ["Log Game Test 1", logGameTest1],
+            ["Update Player Data Test 1", updatePlayerDataTest1],
+            ["Get Leaderboard Test 1", getLeaderboardTest1]
+        ]:
+            if test(db):
+                print(name + " passed!")
+            else:
+                print(name + " failed!")
