@@ -7,13 +7,68 @@ PLAYER_NAME_COLUMN = 2
 DEFAULT_ELO = 1500
 DEFAULT_WINS = 0
 DEFAULT_LOSSES = 0
+PLAYER_SHEET_TEST_INDEX = 2
+GAME_SHEET_TEST_INDEX = 3
+PLAYER_SHEET_INDEX = 0
+GAME_SHEET_INDEX = 1
+START_OF_DATA = "B3"
 
 class GoogleSheetsDatabase:
-    def __init__(self, player_sheet_index, game_sheet_index):
+    def __init__(self, test = False):
         gc = pygsheets.authorize(service_file=SERVICE_FILE)
         self.sh = gc.open(SPREADSHEET_NAME)
-        self.player_wks = self.sh.worksheets()[player_sheet_index]
-        self.game_wks = self.sh.worksheets()[game_sheet_index]
+        if test:
+            #clear sheets
+            self.player_wks = self.sh.worksheets()[PLAYER_SHEET_TEST_INDEX]
+            self.game_wks = self.sh.worksheets()[GAME_SHEET_TEST_INDEX]
+            self.initialize_game_log()
+            self.initialize_player_sheet()
+        else:
+            self.player_wks = self.sh.worksheets()[PLAYER_SHEET_INDEX]
+            self.game_wks = self.sh.worksheets()[GAME_SHEET_INDEX]
+
+
+    def initialize_game_log(self):
+        self.game_wks.clear(start = START_OF_DATA)
+
+    def initialize_player_sheet(self):
+        self.player_wks.clear(start = START_OF_DATA)
+
+    def get_player_games(self, name : str):
+        """Gets a list of games for a player
+
+        Parameters
+        ----------
+        name : str
+            Name of the player
+
+        Returns
+        -------
+        [[timestamp, player1, player2, player3, player4, score1, score2]]
+            list of game logs
+
+        """
+        i = 3
+        j = self.get_next_open_row(self.game_wks)
+        out = []
+        names_start_index = 2
+        names_end_index = 6
+        game_start_index = 1
+        game_end_index = 8
+        for ind in range(i,j):
+            row = self.game_wks.get_row(ind)
+            names = row[names_start_index:names_end_index]
+            if name in names:
+                out.append(self.process_game_from_sheets(row[game_start_index:game_end_index]))
+        return out
+
+    def process_game_from_sheets(self, game):
+        out = game[:]
+        out[0] = int(game[0])
+        out[5] = int(game[5])
+        out[6] = int(game[6])
+        return out
+
 
     def get_player_data(self, player : str):
         """Gets ELO, number of wins and number of losses for a player

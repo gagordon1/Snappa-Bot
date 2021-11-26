@@ -11,7 +11,7 @@ PLAYER_SHEET_INDEX = 2
 GAME_SHEET_INDEX = 3
 
 
-def addPlayerTest1():
+def addPlayerTest1(db):
     """Add a player and verify that the leaderboard was updated
 
     Returns
@@ -20,7 +20,6 @@ def addPlayerTest1():
         True if behaves correctly, False otherwise
 
     """
-    db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
     leaderboard = SnappaLeaderboard(db)
     name = "Garrett"
     name2 = "Andrei"
@@ -50,7 +49,7 @@ def addPlayerTest1():
 
 
 
-def logScoreTest1():
+def logScoreTest1(db):
     """Add two scores and verify that the leaderboard was properly updated
 
     Returns
@@ -59,7 +58,6 @@ def logScoreTest1():
         True if behaves correctly, False otherwise
 
     """
-    db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
     names1 = ["Garrett", "Andrei", "Noah", "Sebastian"]
     names2 = ["Garrett", "Noah", "Andrei", "Sebastian"]
     leaderboard = SnappaLeaderboard(db)
@@ -76,7 +74,7 @@ def logScoreTest1():
     return True
 
 
-def getPlayerHistoryTest1():
+def getPlayerHistoryTest1(db):
     """Adds players, log some games then verifies a correct player
     history
 
@@ -87,19 +85,21 @@ def getPlayerHistoryTest1():
 
 
     """
-    db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
+
     slb = SnappaLeaderboard(db)
     print(slb.generate_message())
     return True
 
 if __name__ == '__main__':
-    initialize_game_log()
-    initialize_player_sheet()
+
+    ### GOOGLE SHEETS TEST ####
+    db = GoogleSheetsDatabase(test = True)
+
     for name, test in [
-            # ["Add Player Test 1", addPlayerTest1],
+            ["Add Player Test 1", addPlayerTest1],
             ["Log Score Test 1", logScoreTest1],
             ["Get Player History Test 1", getPlayerHistoryTest1]]:
-        if test():
+        if test(db):
             print(str(name) + " passed!")
         else:
             print(str(name) + " failed!")

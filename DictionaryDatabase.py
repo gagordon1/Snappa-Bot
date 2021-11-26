@@ -1,5 +1,20 @@
+class DictionaryDatabase:
 
-class Database:
+    def get_player_games(self, name : str):
+        """Gets a list of games for a player
+
+        Parameters
+        ----------
+        name : str
+            Name of the player
+
+        Returns
+        -------
+        [[timestamp, player1, player2, player3, player4, score1, score2]]
+            list of game logs
+
+        """
+        pass
 
     def get_player_data(self, player : str):
         """Gets ELO, number of wins and number of losses for a player
@@ -81,22 +96,6 @@ class Database:
         -------
         [[name, ELO, number of wins, number of losses]]
             List of lists containing each player's data
-
-        """
-        pass
-
-    def get_player_games(self, name : str):
-        """Gets a list of games for a player
-
-        Parameters
-        ----------
-        name : str
-            Name of the player
-
-        Returns
-        -------
-        [[timestamp, player1, player2, player3, player4, score1, score2]]
-            list of game logs
 
         """
         pass
