@@ -9,7 +9,6 @@ from elosports.elo import Elo
 INITIAL_ELO = 1500
 INITIAL_ELO_Ws_Ls = [1500,0,0]
 
-
 def addPlayerTest1(db):
     """Add a player and verify that the leaderboard was updated
 
@@ -26,8 +25,17 @@ def addPlayerTest1(db):
     data1 = [["Garrett", INITIAL_ELO, 0,0]]
     data2 = [["Garrett", INITIAL_ELO, 0,0], ["Andrei", INITIAL_ELO, 0, 0]]
     n = 2
-    response = leaderboard.add_player(name, *INITIAL_ELO_Ws_Ls)
-    if response != "Player Garrett successfully added to the database!":
+    leaderboard.add_player(name, *INITIAL_ELO_Ws_Ls)
+
+    threw_error = False
+    try:
+        leaderboard.add_player("Garrett", *INITIAL_ELO_Ws_Ls)
+    except Exception as e:
+        threw_error = True
+        if str(e) != "Player already exists in the database!":
+            return False
+
+    if not threw_error:
         return False
 
     lb = leaderboard.get_leaderboard(n)
@@ -76,8 +84,15 @@ def logScoreTest1(db):
     if response!= expected:
         return False
 
-    response = leaderboard.log_score(*broken_names, 7, 6)
-    if response != "Player Garret does not exist in the database!":
+    threw_error = False
+    try:
+        leaderboard.log_score(*broken_names, 7, 6)
+    except Exception as e:
+        threw_error = True
+        if str(e) != "Player Garret does not exist in the database!":
+            return False
+
+    if not threw_error:
         return False
 
     data2 = [

@@ -16,7 +16,7 @@ class SnappaLeaderboard:
             elo = self.database.get_player_data(name)[0]
             return int(elo)
         except:
-            return -1
+            raise Exception("Database could not be accessed!")
 
     def get_ranks(self, players):
         """Gets ranks of players sorted by ELO then alphabetically
@@ -30,8 +30,17 @@ class SnappaLeaderboard:
         {str : int}
             Dictionary mapping players to their rank in the leaderboard
 
+        Throws
+        ------
+        Exception
+            throws an exception if database could not be accessed
+
         """
-        leaderboard = self.database.get_leaderboard()
+        try:
+            leaderboard = self.database.get_leaderboard()
+        except:
+            raise Execption("Database could not be accessed!")
+
         filtered = [x for x in filter(lambda elt : elt[0] in players,leaderboard)]
         ordered = sorted(sorted(filtered, key = lambda x : x[0].lower()),
                 key = lambda x: x[1], reverse = True)
@@ -72,12 +81,17 @@ class SnappaLeaderboard:
         String
             The top n players in the leaderboard along with their record
 
+        Throws
+        ------
+        Exception
+            throws an exception if leaderboard could not be accessed
+
         """
         try:
             entries = self.database.get_leaderboard()
             return generate_leaderboard_string(entries, n)
         except Exception:
-            return "Leaderboard could not be accessed!".format(name)
+            raise Exception("Database could not be accessed!")
 
 
 
@@ -95,18 +109,15 @@ class SnappaLeaderboard:
         initial_losses : int
             Initial number of losses for the player
 
-        Returns
-        -------
-        String
-            Message describing if the player was added correctly or not
+        Throws
+        ------
+        Exception
+            throws an exception if player is not successfully added
 
         """
-        try:
-            self.database.add_player(name, initial_elo, initial_wins, initial_losses)
-            return "Player {} successfully added to the database!".format(name)
-        except Exception:
-            return "Player {} could not be added to the database!".format(name)
-
+        response = self.database.add_player(name, initial_elo, initial_wins, initial_losses)
+        if response != "Player {} successfully added!".format(name):
+            raise Exception(response)
 
     def set_k(self, k : int):
         """Updates the k value for the elo calculation
@@ -136,12 +147,17 @@ class SnappaLeaderboard:
         String
             Message showing the result of the outcome of a snappa game
 
+        Throws
+        ------
+        Exception
+            throws an exception if game is not successfully logged
         """
 
         t = time.time()
         response = self.database.log_game(t, player1, player2, player3, player4, team_1_score, team_2_score)
         if response != "Game successfully logged!":
-            return response
+            raise Exception(response)
+
         if team_1_score > team_2_score:
             winner1 = player1
             winner2 = player2
@@ -161,26 +177,29 @@ class SnappaLeaderboard:
                             )
 
         out = []
-        for player in [winner1, winner2]:
-            # elo, wins, losses = self.database.get_player_data(player)
-            obj = self.database.get_player_data(player)
-            elo = obj[0]
-            wins = obj[1]
-            losses = obj[2]
-            new_elo = elo + elo_change
-            out.append([player, new_elo, elo_change])
+        try:
+            for player in [winner1, winner2]:
+                # elo, wins, losses = self.database.get_player_data(player)
+                obj = self.database.get_player_data(player)
+                elo = obj[0]
+                wins = obj[1]
+                losses = obj[2]
+                new_elo = elo + elo_change
+                out.append([player, new_elo, elo_change])
 
-            self.database.updatePlayerData(player, new_elo, wins + 1, losses)
+                self.database.updatePlayerData(player, new_elo, wins + 1, losses)
 
-        for player in [loser1, loser2]:
-            # elo, wins, losses = self.database.get_player_data(player)
-            obj = self.database.get_player_data(player)
-            elo = obj[0]
-            wins = obj[1]
-            losses = obj[2]
-            new_elo = elo - elo_change
-            out.append([player, new_elo, -elo_change])
-            self.database.updatePlayerData(player, new_elo, wins, losses + 1)
+            for player in [loser1, loser2]:
+                # elo, wins, losses = self.database.get_player_data(player)
+                obj = self.database.get_player_data(player)
+                elo = obj[0]
+                wins = obj[1]
+                losses = obj[2]
+                new_elo = elo - elo_change
+                out.append([player, new_elo, -elo_change])
+                self.database.updatePlayerData(player, new_elo, wins, losses + 1)
+        except:
+            raise Exception("Player data could not be accessed!")
 
         #insert new rank
         ranks = self.get_ranks([winner1, winner2, loser1, loser2])
