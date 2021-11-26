@@ -1,8 +1,9 @@
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string
 
-
-
 class SnappaLeaderboard:
+
+    def __init__(self, database):
+        self.database = database
 
     def get_player_history(self, name : str):
         """Gets the history of a player's snappa games
@@ -52,7 +53,10 @@ class SnappaLeaderboard:
             Message describing if the player was added correctly or not
 
         """
-        pass
+        try:
+            database.add_player(name)
+        except Exception:
+            return "Name {} could not be added to the database".format(name)
 
 
 
