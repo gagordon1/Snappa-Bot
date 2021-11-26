@@ -59,16 +59,27 @@ def logScoreTest1(db):
     """
     names1 = ["Garrett", "Andrei", "Noah", "Sebastian"]
     names2 = ["Garrett", "Noah", "Andrei", "Sebastian"]
-    leaderboard = SnappaLeaderboard(db)
+    leaderboard = SnappaLeaderboard(db, k = 10)
+    leaderboard.set_k(20)
 
     print(names1, 7, 5, ":")
     response = leaderboard.log_score(*names1, 7, 5)
-    print(response)
+    data = [
+        ["Andrei", 1, 1510, 10],
+        ["Garrett", 2, 1510, 10],
+        ["Noah", 3, 1490, -10],
+        ["Sebastian", 4, 1490, -10]
 
-    for i in range(3):
-        print(names2, 3, 7, ":")
-        response = leaderboard.log_score(*names2, 3, 7)
-        print(response)
+    ]
+    expected = tabulate(data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    print("response\n", response)
+    print("expected\n", expected)
+    if response!= expected:
+        return False
+    # for i in range(3):
+    #     print(names2, 3, 7, ":")
+    #     response = leaderboard.log_score(*names2, 3, 7)
+    #     print(response)
 
     return True
 
@@ -92,10 +103,10 @@ def getPlayerHistoryTest1(db):
 if __name__ == '__main__':
 
     ### GOOGLE SHEETS TEST ####
-    db = GoogleSheetsDatabase(test = True)
+    # db = GoogleSheetsDatabase(test = True)
 
     ### NAIVE DATABASE TEST ###
-    # db = DictionaryDatabase()
+    db = DictionaryDatabase()
 
     print("\n")
     print("Testing Snappa Leaderboard...\n")

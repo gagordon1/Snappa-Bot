@@ -7,8 +7,9 @@ import time
 
 class SnappaLeaderboard:
 
-    def __init__(self, database):
+    def __init__(self, database, k = 20):
         self.database = database
+        self.k = k
 
     def get_elo(self, name):
         try:
@@ -20,7 +21,8 @@ class SnappaLeaderboard:
     def get_ranks(self, players):
         leaderboard = self.database.get_leaderboard()
         filtered = [x for x in filter(lambda elt : elt[0] in players,leaderboard)]
-        ordered = sorted(filtered, key = lambda x : (x[1], x[0]), reverse = True)
+        ordered = sorted(sorted(filtered, key = lambda x : x[0].lower()),
+                key = lambda x: x[1], reverse = True)
         out = {}
         i = 1
         for entry in ordered:
@@ -94,6 +96,20 @@ class SnappaLeaderboard:
             return "Player {} could not be added to the database!".format(name)
 
 
+    def set_k(self, k : int):
+        """Updates the k value for the elo calculation
+
+        Parameters
+        ----------
+        k : int
+            k value for elo calculation
+
+        """
+        self.k = k
+
+    def get_k(self):
+        return self.k
+
 
     def log_score(self, player1 : str,
         player2 :str,
@@ -127,6 +143,7 @@ class SnappaLeaderboard:
                                 winner2, self.get_elo(winner2),
                                 loser1, self.get_elo(loser1),
                                 loser2, self.get_elo(loser2),
+                                self.k
                             )
 
         out = []
