@@ -71,7 +71,6 @@ def logScoreTest1(db):
         ["Noah", 3, 1480, -20],
         ["Sebastian", 4, 1480, -20]
     ]
-    print(response)
     expected = tabulate(data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
     if response!= expected:
         return False
@@ -84,7 +83,6 @@ def logScoreTest1(db):
         ["Sebastian", 4, 1463, -17]
     ]
     response = leaderboard.log_score(*names1, 7, 5)
-    print(response)
     expected = tabulate(data2, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
     if response!= expected:
         return False
@@ -97,7 +95,6 @@ def logScoreTest1(db):
         ["Noah", 4, 1443, -20]
     ]
     response = leaderboard.log_score(*names2, 7, 5)
-    print(response)
     expected = tabulate(data3, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
     if response!= expected:
         return False
@@ -105,9 +102,8 @@ def logScoreTest1(db):
     return True
 
 
-def getPlayerHistoryTest1(db):
-    """Adds players, log some games then verifies a correct player
-    history
+def generateMessage(db):
+    """Tests generating a message
 
     Returns
     -------
@@ -118,8 +114,9 @@ def getPlayerHistoryTest1(db):
     """
     print("Testing Player History...")
     slb = SnappaLeaderboard(db)
-    print(slb.generate_message())
-    return True
+    if type(slb.generate_message()) is str:
+        return True
+    return False
 
 if __name__ == '__main__':
 
@@ -134,7 +131,7 @@ if __name__ == '__main__':
     for name, test in [
             ["Add Player Test 1", addPlayerTest1],
             ["Log Score Test 1", logScoreTest1],
-            ["Get Player History Test 1", getPlayerHistoryTest1]]:
+            ["Generate Message Test 1", generateMessage]]:
         if test(db):
             print(str(name) + " passed!")
         else:
