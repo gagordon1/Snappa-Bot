@@ -21,6 +21,13 @@ POST
     Response:
     "Player {name} successfully added!" | "Player {name}'s name is too long"
     | Player's name cannot be empty!
+
+GET
+    name : str
+
+    Response:
+    Tabulated string of player data | "Player data could not be accessed!"
+
 """
 @ app.route("/players", methods=["POST", "GET"])
 def players():
