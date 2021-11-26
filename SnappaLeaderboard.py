@@ -186,8 +186,8 @@ class SnappaLeaderboard:
             name = entry[0]
             entry.insert(1, ranks[name])
 
-        # "Game could not be logged!".format(name)
-        return generate_score_log_string(out)
+
+        return generate_score_log_string(sorted(out, key = lambda x : x[1])) #sort on rank
 
 
 

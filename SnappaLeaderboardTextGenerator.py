@@ -38,8 +38,7 @@ def generate_score_log_string(data : list):
         Tabulated version of this information
 
     """
-    sorted_data = sorted(data, key = lambda x : (x[2], x[1]), reverse = True)
-    return tabulate(sorted_data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    return tabulate(data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
 
 
 if __name__ == '__main__':

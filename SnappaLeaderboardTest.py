@@ -19,6 +19,7 @@ def addPlayerTest1(db):
         True if behaves correctly, False otherwise
 
     """
+    print("Testing add player...")
     leaderboard = SnappaLeaderboard(db)
     name = "Garrett"
     name2 = "Andrei"
@@ -57,29 +58,49 @@ def logScoreTest1(db):
         True if behaves correctly, False otherwise
 
     """
+    print("Testing Log Score...")
     names1 = ["Garrett", "Andrei", "Noah", "Sebastian"]
-    names2 = ["Garrett", "Noah", "Andrei", "Sebastian"]
+    names2 = ["Garrett", "Sebastian", "Andrei", "Noah"]
     leaderboard = SnappaLeaderboard(db, k = 10)
-    leaderboard.set_k(20)
+    leaderboard.set_k(40) #k to 100 - will fail if changed
 
-    print(names1, 7, 5, ":")
     response = leaderboard.log_score(*names1, 7, 5)
     data = [
-        ["Andrei", 1, 1510, 10],
-        ["Garrett", 2, 1510, 10],
-        ["Noah", 3, 1490, -10],
-        ["Sebastian", 4, 1490, -10]
-
+        ["Andrei", 1, 1520, 20],
+        ["Garrett", 2, 1520, 20],
+        ["Noah", 3, 1480, -20],
+        ["Sebastian", 4, 1480, -20]
     ]
+    print(response)
     expected = tabulate(data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
-    print("response\n", response)
-    print("expected\n", expected)
     if response!= expected:
         return False
-    # for i in range(3):
-    #     print(names2, 3, 7, ":")
-    #     response = leaderboard.log_score(*names2, 3, 7)
-    #     print(response)
+
+
+    data2 = [
+        ["Andrei", 1, 1537, 17],
+        ["Garrett", 2, 1537, 17],
+        ["Noah", 3, 1463, -17],
+        ["Sebastian", 4, 1463, -17]
+    ]
+    response = leaderboard.log_score(*names1, 7, 5)
+    print(response)
+    expected = tabulate(data2, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    if response!= expected:
+        return False
+
+
+    data3 = [
+        ["Garrett", 1, 1557, 20],
+        ["Andrei", 2, 1517, -20],
+        ["Sebastian", 3, 1483, 20],
+        ["Noah", 4, 1443, -20]
+    ]
+    response = leaderboard.log_score(*names2, 7, 5)
+    print(response)
+    expected = tabulate(data3, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    if response!= expected:
+        return False
 
     return True
 
@@ -95,7 +116,7 @@ def getPlayerHistoryTest1(db):
 
 
     """
-
+    print("Testing Player History...")
     slb = SnappaLeaderboard(db)
     print(slb.generate_message())
     return True
