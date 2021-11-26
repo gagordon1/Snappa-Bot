@@ -9,10 +9,12 @@ GAME_SHEET_TEST_INDEX = 3
 PLAYER_SHEET_INDEX = 0
 GAME_SHEET_INDEX = 1
 START_OF_DATA = "B3"
+SECONDS_PER_QUOTA = 100
 
 class GoogleSheetsDatabase:
     def __init__(self, test = False):
         gc = pygsheets.authorize(service_file=SERVICE_FILE)
+        gc.seconds_per_quota = SECONDS_PER_QUOTA
         self.sh = gc.open(SPREADSHEET_NAME)
         if test:
             #clear sheets

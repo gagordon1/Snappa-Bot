@@ -140,10 +140,10 @@ def generateMessage(db):
 if __name__ == '__main__':
 
     ### GOOGLE SHEETS TEST ####
-    # db = GoogleSheetsDatabase(test = True)
+    db = GoogleSheetsDatabase(test = True)
 
     ### NAIVE DATABASE TEST ###
-    db = DictionaryDatabase()
+    # db = DictionaryDatabase()
 
     print("\n")
     print("Testing Snappa Leaderboard...\n")
