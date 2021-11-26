@@ -1,8 +1,12 @@
 
 from SnappaLeaderboard import SnappaLeaderboard, generate_leaderboard_string
+from GoogleSheetsDatabase import GoogleSheetsDatabase
 from tabulate import tabulate
 from elosports.elo import Elo
 INITIAL_ELO = 1500
+SPREADSHEET_NAME = "Snappa Database"
+PLAYER_SHEET_INDEX = 2
+GAME_SHEET_INDEX = 3
 
 def addPlayerTest1():
     """Add a player and verify that the leaderboard was updated
@@ -13,7 +17,8 @@ def addPlayerTest1():
         True if behaves correctly, False otherwise
 
     """
-    leaderboard = SnappaLeaderboard()
+    db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
+    leaderboard = SnappaLeaderboard(db)
     name = "Garrett"
     name2 = "Andrei"
     data1 = [["Garrett", INITIAL_ELO, 0,0]]
