@@ -75,17 +75,12 @@ class Database:
         pass
 
     def get_leaderboard(self, n : int):
-        """Gets the first n players on the leaderboard
-
-        Parameters
-        ----------
-        n : int
-            Number of players to include in the leaderboard
+        """Gets all player data from the leaderboard
 
         Returns
         -------
-        str
-            leaderboard according to the spec.
+        [[name, ELO, number of wins, number of losses]]
+            List of lists containing each player's data
 
         """
         pass

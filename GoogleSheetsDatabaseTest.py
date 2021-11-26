@@ -31,13 +31,13 @@ def addPlayerTest1():
     if response != "Player already exists in the database!":
         return False
 
-    response = db.add_player("Andrei")
-    if response != "Player Andrei successfully added!":
+    response = db.add_player("Noah")
+    if response != "Player Noah successfully added!":
         return False
     test_row_number_2 = 4
     row = wks.get_row(test_row_number)
     row2 = wks.get_row(test_row_number_2)
-    if row[1:5] != ['Garrett', '1500', '0', '0'] or row2[1:5] != ['Andrei', '1500', '0', '0']:
+    if row[1:5] != ['Garrett', '1500', '0', '0'] or row2[1:5] != ['Noah', '1500', '0', '0']:
         return False
 
     return True
@@ -49,7 +49,7 @@ def updatePlayerDataTest1():
     response = db.updatePlayerData("Garrett", 1502, 1, 1)
     if response != "Player data successfully updated!":
         return False
-        
+
     response = db.updatePlayerData("Garret", 1502, 1, 1)
 
     if response != "Player Garret does not exist in the database!":
@@ -71,10 +71,22 @@ def updatePlayerDataTest1():
 
     return True
 
+def getLeaderboardTest1():
+    wks = get_worksheet(PLAYER_SHEET_INDEX)
+    db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
+    expected = [["Andrei", 1502, 1,1], ["Garrett", 1502,1,1], ["Noah", 1498,1,1], ["Sebastian", 1498,1,1]]
+    result = db.get_leaderboard()
+    print(result)
+    for l in expected:
+        if l not in result:
+            return False
+    return True
+
+
 def logGameTest1():
     wks = get_worksheet(GAME_SHEET_INDEX)
     db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
-    db.add_player("Noah")
+    db.add_player("Andrei")
     db.add_player("Sebastian")
 
     t = int(time())
@@ -122,7 +134,8 @@ if __name__ == '__main__':
     for name, test in [
         ["Add Player Test 1", addPlayerTest1],
         ["Log Game Test 1", logGameTest1],
-        ["Update Player Data Test 1", updatePlayerDataTest1]
+        ["Update Player Data Test 1", updatePlayerDataTest1],
+        ["Get Leaderboard Test 1", getLeaderboardTest1]
     ]:
         if test():
             print(name + " passed!")

@@ -115,21 +115,25 @@ class GoogleSheetsDatabase:
             player3, player4, team_1_score, team_2_score]])
         return "Game successfully logged!"
 
-    def get_leaderboard(self, n : int):
-        """Gets the first n players on the leaderboard
-
-        Parameters
-        ----------
-        n : int
-            Number of players to include in the leaderboard
+    def get_leaderboard(self):
+        """Gets all player data from the leaderboard
 
         Returns
         -------
-        str
-            leaderboard according to the spec.
+        [[name, ELO, number of wins, number of losses]]
+            List of lists containing each player's data
 
         """
-        pass
+        i = 3
+        j = self.get_next_open_row(self.player_wks)
+        out = []
+        for ind in range(i,j):
+            row = self.player_wks.get_row(ind)[1:5]
+            out.append([row[0], int(row[1]),int(row[2]),int(row[3])])
+        return out
+
+
+
 
 
 
