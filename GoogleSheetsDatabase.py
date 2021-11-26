@@ -35,19 +35,6 @@ class GoogleSheetsDatabase:
         self.player_wks.clear(start = START_OF_DATA)
 
     def get_player_games(self, name : str):
-        """Gets a list of games for a player
-
-        Parameters
-        ----------
-        name : str
-            Name of the player
-
-        Returns
-        -------
-        [[timestamp, player1, player2, player3, player4, score1, score2]]
-            list of game logs
-
-        """
         i = 3
         j = self.get_next_open_row(self.game_wks)
         out = []
@@ -56,7 +43,7 @@ class GoogleSheetsDatabase:
         game_start_index = 1
         game_end_index = 8
         for ind in range(i,j):
-            row = self.game_wks.get_row(ind)
+            row = self.game_wks.get_row(ind, include_tailing_empty = False)
             names = row[names_start_index:names_end_index]
             if name in names:
                 out.append(self.process_game_from_sheets(row[game_start_index:game_end_index]))
@@ -71,20 +58,7 @@ class GoogleSheetsDatabase:
 
 
     def get_player_data(self, player : str):
-        """Gets ELO, number of wins and number of losses for a player
-
-        Parameters
-        ----------
-        player : str
-            Name of the player
-
-        Returns
-        -------
-        [int]
-            List of [ELO, number of wins, number of losses]
-
-        """
-        player_column = self.player_wks.get_col(PLAYER_NAME_COLUMN)
+        player_column = self.player_wks.get_col(PLAYER_NAME_COLUMN, include_tailing_empty = False)
         players = [p for p in filter(lambda x : (x != '' and x != 'Name'),
             player_column)]
         if player not in players:
@@ -92,31 +66,12 @@ class GoogleSheetsDatabase:
         row = 1 + player_column.index(player)
         data_start_column = 2
         data_end_column = 5
-        ret = [int(x) for x in self.player_wks.get_row(row)[data_start_column:data_end_column]]
+        ret = [int(x) for x in self.player_wks.get_row(row, include_tailing_empty = False)[data_start_column:data_end_column]]
         return ret
 
     def updatePlayerData(self, player : str, ELO : int,
         number_of_wins : int, number_of_losses : int):
-        """Updates data at a player's column
-
-        Parameters
-        ----------
-        player : str
-            name of the player
-        ELO : int
-            new ELO to be logged
-        number_of_wins : int
-            new number of wins to be logged
-        number_of_losses : int
-            new number of losses to be logged
-
-        Returns
-        -------
-        str
-            message saying if data was updated or not
-
-        """
-        player_column = self.player_wks.get_col(PLAYER_NAME_COLUMN)
+        player_column = self.player_wks.get_col(PLAYER_NAME_COLUMN , include_tailing_empty = False)
         players = [p for p in filter(lambda x : (x != '' and x != 'Name'),
             player_column)]
         if player not in players:
@@ -134,33 +89,8 @@ class GoogleSheetsDatabase:
             player4 : str,
             team_1_score : int,
             team_2_score : int):
-        """Logs a game in the database.
-
-        Parameters
-        ----------
-        timestamp : int
-            unix epoch time in seconds of the game.
-        player1 : str
-            One of the team 1 players.
-        player2 : str
-            The other team 1 player.
-        player3 : str
-            One of the team 2 players.
-        player4 : str
-            The other team 2 player.
-        team_1_score : int
-            Team 1's score.
-        team_2_score : int
-            Team 2's score.
-
-        Returns
-        -------
-        type
-            Message saying if the score was properly logged or not.
-
-        """
         players = [p for p in filter(lambda x : (x != '' and x != 'Name'),
-            self.player_wks.get_col(PLAYER_NAME_COLUMN))]
+            self.player_wks.get_col(PLAYER_NAME_COLUMN, include_tailing_empty = False))]
         for player in [player1, player2, player3, player4]:
             if player not in players:
                 return "Player {} does not exist in the database!".format(player)
@@ -172,46 +102,19 @@ class GoogleSheetsDatabase:
         return "Game successfully logged!"
 
     def get_leaderboard(self):
-        """Gets all player data from the leaderboard
-
-        Returns
-        -------
-        [[name, ELO, number of wins, number of losses]]
-            List of lists containing each player's data
-
-        """
         i = 3
         j = self.get_next_open_row(self.player_wks)
         out = []
         for ind in range(i,j):
-            row = self.player_wks.get_row(ind)[1:5]
+            row = self.player_wks.get_row(ind, include_tailing_empty = False)[1:5]
             out.append([row[0], int(row[1]),int(row[2]),int(row[3])])
         return out
 
 
     def add_player(self, name : str, initial_elo :int, initial_wins : int, initial_losses : int):
-        """Adds a player to the google sheet database
 
-        Parameters
-        ----------
-        name : str
-            Name of the player to add
-        initial_elo : int
-            Initial elo of the player
-        initial_wins : int
-            Initial number of wins for the player
-        initial_losses : int
-            Initial number of losses for the player
-
-        Returns
-        -------
-        str
-            Message declaring if the player was added or not
-
-        """
-        pass
         players = [p for p in filter(lambda x : (x != '' and x != 'Name'),
-            self.player_wks.get_col(PLAYER_NAME_COLUMN))]
+            self.player_wks.get_col(PLAYER_NAME_COLUMN, include_tailing_empty = False))]
         if name in players:
             #name already in database
             return "Player already exists in the database!"
@@ -225,6 +128,6 @@ class GoogleSheetsDatabase:
 
     def get_next_open_row(self, wks):
         i = 3
-        while any(elt != '' for elt in wks.get_row(i)[1:10]):
+        while any(elt != '' for elt in wks.get_row(i, include_tailing_empty = False)[1:10]):
             i += 1
         return i

@@ -2,13 +2,13 @@
 from SnappaLeaderboard import SnappaLeaderboard
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
 from GoogleSheetsDatabase import GoogleSheetsDatabase
-from GoogleSheetsDatabaseTest import initialize_game_log, initialize_player_sheet
 from tabulate import tabulate
 from elosports.elo import Elo
 INITIAL_ELO = 1500
 SPREADSHEET_NAME = "Snappa Database"
 PLAYER_SHEET_INDEX = 2
 GAME_SHEET_INDEX = 3
+INITIAL_ELO_Ws_Ls = [1500,0,0]
 
 
 def addPlayerTest1(db):
@@ -26,7 +26,7 @@ def addPlayerTest1(db):
     data1 = [["Garrett", INITIAL_ELO, 0,0]]
     data2 = [["Garrett", INITIAL_ELO, 0,0], ["Andrei", INITIAL_ELO, 0, 0]]
     n = 2
-    response = leaderboard.add_player(name)
+    response = leaderboard.add_player(name, *INITIAL_ELO_Ws_Ls)
     if response != "Player Garrett successfully added to the database!":
         return False
 
@@ -37,13 +37,13 @@ def addPlayerTest1(db):
     if lb != generate_leaderboard_string(data1, n):
         return False
 
-    leaderboard.add_player(name2)
+    leaderboard.add_player(name2, *INITIAL_ELO_Ws_Ls )
     lb2 = leaderboard.get_leaderboard(n)
     if lb2 != generate_leaderboard_string(data2, n):
         return False
 
-    leaderboard.add_player("Noah")
-    leaderboard.add_player("Sebastian")
+    leaderboard.add_player("Noah", *INITIAL_ELO_Ws_Ls)
+    leaderboard.add_player("Sebastian", *INITIAL_ELO_Ws_Ls)
 
     return True
 

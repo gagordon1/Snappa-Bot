@@ -20,6 +20,10 @@ def addPlayerTest1(db):
     if response != [1500, 0 ,0]:
         return False
 
+    response = db.get_player_data("Garret")
+    if response != "Player Garret does not exist in the database!":
+        return False
+
     response = db.get_player_data("Noah")
     if response != [1500, 0 ,0]:
         return False
@@ -95,8 +99,8 @@ def logGameTest1(db):
 
 
 if __name__ == '__main__':
-    # db = DictionaryDatabase()
-    db = GoogleSheetsDatabase(test = True)
+    db = DictionaryDatabase()
+    # db = GoogleSheetsDatabase(test = True)
     for name, test in [
         ["Add Player Test 1", addPlayerTest1],
         ["Log Game Test 1", logGameTest1],

@@ -11,8 +11,9 @@ class Database:
 
         Returns
         -------
-        [int]
-            List of [ELO, number of wins, number of losses]
+        [int] | str
+            List of [ELO, number of wins, number of losses] or message saying
+            they were not properly added
 
         """
         pass
@@ -68,7 +69,7 @@ class Database:
 
         Returns
         -------
-        type
+        str
             Message saying if the score was properly logged or not.
 
         """

@@ -67,13 +67,19 @@ class SnappaLeaderboard:
 
 
 
-    def add_player(self, name : str):
+    def add_player(self, name : str, initial_elo :int, initial_wins : int, initial_losses :int):
         """Add a player to the leaderboard system
 
         Parameters
         ----------
         name : String
             name of the user
+        initial_elo : int
+            Initial elo of the player
+        initial_wins : int
+            Initial number of wins for the player
+        initial_losses : int
+            Initial number of losses for the player
 
         Returns
         -------
@@ -82,7 +88,7 @@ class SnappaLeaderboard:
 
         """
         try:
-            self.database.add_player(name)
+            self.database.add_player(name, initial_elo, initial_wins, initial_losses)
             return "Player {} successfully added to the database!".format(name)
         except Exception:
             return "Player {} could not be added to the database!".format(name)
