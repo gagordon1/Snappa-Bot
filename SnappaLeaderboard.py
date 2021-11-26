@@ -1,9 +1,12 @@
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
+from SnappaLeaderboardTextGenerator import generate_player_data_string
 from elo_functions import calculate_elo_change
 from tabulate import tabulate
 from Databases.MessageDatabase import messages
 import random
 import time
+
+MAX_NAME_LENGTH = 30
 
 class SnappaLeaderboard:
 
@@ -101,7 +104,8 @@ class SnappaLeaderboard:
         Parameters
         ----------
         name : String
-            name of the user
+            name of the user (cannot be '' and cannot be longer than
+            30 characters and already exist in the system)
         initial_elo : int
             Initial elo of the player
         initial_wins : int
@@ -115,6 +119,10 @@ class SnappaLeaderboard:
             throws an exception if player is not successfully added
 
         """
+        if len(name) > MAX_NAME_LENGTH:
+            raise Exception("Player {}'s name is too long!").format(name)
+        elif name == '':
+            raise Exception("Player's name cannot be empty!")
         response = self.database.add_player(name, initial_elo, initial_wins, initial_losses)
         if response != "Player {} successfully added!".format(name):
             raise Exception(response)
@@ -132,6 +140,31 @@ class SnappaLeaderboard:
 
     def get_k(self):
         return self.k
+
+    def get_rank(self, player : str):
+        return self.get_ranks([player])[player]
+
+    def get_player_data(self, player):
+        """Gets player data
+
+        Parameters
+        ----------
+        player : str
+            Name of the player
+
+        Returns
+        -------
+        str
+            tabulated data with name, rank, elo, wins, losses
+
+        """
+        try:
+            rank = self.get_rank(player)
+            data = self.database.get_player_data(player)
+            return generate_player_data_string(player, rank, data)
+        except:
+            raise Exception("Player data could not be accessed!")
+
 
 
     def log_score(self, player1 : str,
@@ -154,7 +187,11 @@ class SnappaLeaderboard:
         """
 
         t = time.time()
-        response = self.database.log_game(t, player1, player2, player3, player4, team_1_score, team_2_score)
+        try:
+            response = self.database.log_game(t, player1, player2, player3, player4, team_1_score, team_2_score)
+        except Exception as e:
+            raise Exception("Game could not be logged!")
+
         if response != "Game successfully logged!":
             raise Exception(response)
 

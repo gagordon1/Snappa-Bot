@@ -120,8 +120,16 @@ def logScoreTest1(db):
 
     return True
 
+def getPlayerDataTest1(db):
+    leaderboard = SnappaLeaderboard(db)
+    response = leaderboard.get_player_data("Garrett")
+    expected = tabulate([["Garrett",1, 1557, 3, 0]],
+        headers = ["Name", "Rank", "ELO", "Wins", "Losses"])
+    if response != expected:
+        return False
+    return True
 
-def generateMessage(db):
+def generateMessageTest1(db):
     """Tests generating a message
 
     Returns
@@ -140,17 +148,19 @@ def generateMessage(db):
 if __name__ == '__main__':
 
     ### GOOGLE SHEETS TEST ####
-    db = GoogleSheetsDatabase(test = True)
+    # db = GoogleSheetsDatabase(test = True)
 
     ### NAIVE DATABASE TEST ###
-    # db = DictionaryDatabase()
+    db = DictionaryDatabase()
 
     print("\n")
     print("Testing Snappa Leaderboard...\n")
     for name, test in [
             ["Add Player Test 1", addPlayerTest1],
             ["Log Score Test 1", logScoreTest1],
-            ["Generate Message Test 1", generateMessage]]:
+            ["Generate Message Test 1", generateMessageTest1],
+            ["Get Player Data Test 1", getPlayerDataTest1]
+        ]:
         if test(db):
             print(str(name) + " passed!")
         else:

@@ -40,6 +40,23 @@ def generate_score_log_string(data : list):
     """
     return tabulate(data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
 
+def generate_player_data_string(player : str, rank : int, data : list):
+    """Gets player data as a tabulated string
+
+    Parameters
+    ----------
+    data : list
+        list of player data  [ELO, number of wins, number of losses]
+
+    Returns
+    -------
+    str
+        Tabulated version of the player data
+
+    """
+    return tabulate([[player] + [rank] + data], headers = ["Name", "Rank", "ELO", "Wins", "Losses"])
+
+
 
 if __name__ == '__main__':
     # data = [['Garrett Gordon', 701, 5, 6], ['Andrei Dumitrescu', 700, 4, 9]]
