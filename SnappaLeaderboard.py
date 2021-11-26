@@ -19,6 +19,18 @@ class SnappaLeaderboard:
             return -1
 
     def get_ranks(self, players):
+        """Gets ranks of players sorted by ELO then alphabetically
+        Parameters
+        ----------
+        players : [str]
+            list of player names
+
+        Returns
+        -------
+        {str : int}
+            Dictionary mapping players to their rank in the leaderboard
+
+        """
         leaderboard = self.database.get_leaderboard()
         filtered = [x for x in filter(lambda elt : elt[0] in players,leaderboard)]
         ordered = sorted(sorted(filtered, key = lambda x : x[0].lower()),
