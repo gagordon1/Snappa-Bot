@@ -2,6 +2,7 @@
 from SnappaLeaderboard import SnappaLeaderboard
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
 from GoogleSheetsDatabase import GoogleSheetsDatabase
+from DictionaryDatabase import DictionaryDatabase
 from tabulate import tabulate
 from elosports.elo import Elo
 INITIAL_ELO = 1500
@@ -93,7 +94,10 @@ def getPlayerHistoryTest1(db):
 if __name__ == '__main__':
 
     ### GOOGLE SHEETS TEST ####
-    db = GoogleSheetsDatabase(test = True)
+    # db = GoogleSheetsDatabase(test = True)
+
+    ### NAIVE DATABASE TEST ###
+    db = DictionaryDatabase()
 
     for name, test in [
             ["Add Player Test 1", addPlayerTest1],
