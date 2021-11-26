@@ -103,17 +103,23 @@ class Database:
 
 
 
-    def add_player(self, name : str):
+    def add_player(self, name : str, initial_elo :int, initial_wins : int, initial_losses : int):
         """Adds a player to the google sheet database
 
         Parameters
         ----------
         name : str
             Name of the player to add
+        initial_elo : int
+            Initial elo of the player
+        initial_wins : int
+            Initial number of wins for the player
+        initial_losses : int
+            Initial number of losses for the player
 
         Returns
         -------
-        type
+        str
             Message declaring if the player was added or not
 
         """

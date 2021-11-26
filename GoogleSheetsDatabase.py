@@ -189,20 +189,27 @@ class GoogleSheetsDatabase:
         return out
 
 
-    def add_player(self, name : str):
+    def add_player(self, name : str, initial_elo :int, initial_wins : int, initial_losses : int):
         """Adds a player to the google sheet database
 
         Parameters
         ----------
         name : str
             Name of the player to add
+        initial_elo : int
+            Initial elo of the player
+        initial_wins : int
+            Initial number of wins for the player
+        initial_losses : int
+            Initial number of losses for the player
 
         Returns
         -------
-        type
+        str
             Message declaring if the player was added or not
 
         """
+        pass
         players = [p for p in filter(lambda x : (x != '' and x != 'Name'),
             self.player_wks.get_col(PLAYER_NAME_COLUMN))]
         if name in players:
@@ -211,8 +218,8 @@ class GoogleSheetsDatabase:
         else:
             row = self.get_next_open_row(self.player_wks)
             crange = "B{}:E{}".format(row, row)
-            self.player_wks.update_values(crange = crange, values = [[name, DEFAULT_ELO,
-                DEFAULT_WINS, DEFAULT_LOSSES]])
+            self.player_wks.update_values(crange = crange, values = [[name, initial_elo,
+                initial_wins, initial_losses]])
             return "Player {} successfully added!".format(name)
 
 

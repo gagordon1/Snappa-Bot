@@ -3,16 +3,16 @@ from DictionaryDatabase import DictionaryDatabase
 from GoogleSheetsDatabase import GoogleSheetsDatabase
 
 def addPlayerTest1(db):
-    response = db.add_player("Garrett")
+    response = db.add_player("Garrett", 1500, 0 , 0)
     if response != "Player Garrett successfully added!":
         return False
 
     #Try to add the same player twice
-    response = db.add_player("Garrett")
+    response = db.add_player("Garrett", 1500, 0, 0)
     if response != "Player already exists in the database!":
         return False
 
-    response = db.add_player("Noah")
+    response = db.add_player("Noah", 1500, 0 ,0)
     if response != "Player Noah successfully added!":
         return False
 
@@ -63,15 +63,14 @@ def getLeaderboardTest1(db):
 
 
 def logGameTest1(db):
-    db.add_player("Andrei")
-    db.add_player("Sebastian")
+    db.add_player("Andrei", 1500, 0, 0)
+    db.add_player("Sebastian", 1500, 0, 0)
 
     t = int(time())
     game = [t, "Garrett", "Andrei", "Noah", "Sebastian",7,2]
     response = db.log_game(*game)
     if response != "Game successfully logged!":
         return False
-    print("1")
 
     response = db.get_player_games("Garrett")
     if response != [game]:
@@ -80,7 +79,6 @@ def logGameTest1(db):
     response = db.log_game(t, "Garret", "Andrei", "Noah", "Sebastian",7,2)
     if response != "Player Garret does not exist in the database!":
         return False
-    print("2")
 
     t = int(time())
     game2 = [t, "Garrett", "Noah", "Andrei", "Sebastian",3,7]
@@ -92,7 +90,7 @@ def logGameTest1(db):
     for g in game, game2:
         if g not in response:
             return False
-            
+
     return True
 
 

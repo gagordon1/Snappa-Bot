@@ -1,5 +1,9 @@
 class DictionaryDatabase:
 
+    def __init__(self):
+        self.games = []
+        self.players = {}
+
     def get_player_games(self, name : str):
         """Gets a list of games for a player
 
@@ -102,17 +106,23 @@ class DictionaryDatabase:
 
 
 
-    def add_player(self, name : str):
+    def add_player(self, name : str, initial_elo :int, initial_wins : int, initial_losses : int):
         """Adds a player to the google sheet database
 
         Parameters
         ----------
         name : str
             Name of the player to add
+        initial_elo : int
+            Initial elo of the player
+        initial_wins : int
+            Initial number of wins for the player
+        initial_losses : int
+            Initial number of losses for the player
 
         Returns
         -------
-        type
+        str
             Message declaring if the player was added or not
 
         """
