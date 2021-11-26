@@ -87,13 +87,16 @@ def getPlayerHistoryTest1():
 
 
     """
-    return False
+    db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
+    slb = SnappaLeaderboard(db)
+    print(slb.generate_message())
+    return True
 
 if __name__ == '__main__':
     initialize_game_log()
     initialize_player_sheet()
     for name, test in [
-            ["Add Player Test 1", addPlayerTest1],
+            # ["Add Player Test 1", addPlayerTest1],
             ["Log Score Test 1", logScoreTest1],
             ["Get Player History Test 1", getPlayerHistoryTest1]]:
         if test():

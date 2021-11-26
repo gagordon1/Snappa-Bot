@@ -1,6 +1,8 @@
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
 from elo_functions import calculate_elo_change
 from tabulate import tabulate
+from MessageDatabase import messages
+import random
 import time
 
 class SnappaLeaderboard:
@@ -163,7 +165,8 @@ class SnappaLeaderboard:
             Randomly chosen message from a set of phrases
 
         """
-        pass
+        return random.choice(messages)
 
 if __name__ == '__main__':
+    # slb = SnappaLeaderboard()
     pass
