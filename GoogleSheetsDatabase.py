@@ -134,10 +134,6 @@ class GoogleSheetsDatabase:
         return out
 
 
-
-
-
-
     def add_player(self, name : str):
         """Adds a player to the google sheet database
 
