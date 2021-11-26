@@ -37,7 +37,8 @@ class GoogleSheetsDatabase:
         row = 1 + player_column.index(player)
         data_start_column = 2
         data_end_column = 5
-        return [int(x) for x in self.player_wks.get_row(row)[data_start_column:data_end_column]]
+        ret = [int(x) for x in self.player_wks.get_row(row)[data_start_column:data_end_column]]
+        return ret
 
     def updatePlayerData(self, player : str, ELO : int,
         number_of_wins : int, number_of_losses : int):

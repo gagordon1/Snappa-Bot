@@ -1,5 +1,6 @@
 
-from SnappaLeaderboard import SnappaLeaderboard, generate_leaderboard_string
+from SnappaLeaderboard import SnappaLeaderboard
+from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
 from GoogleSheetsDatabase import GoogleSheetsDatabase
 from GoogleSheetsDatabaseTest import initialize_game_log, initialize_player_sheet
 from tabulate import tabulate
@@ -42,6 +43,9 @@ def addPlayerTest1():
     if lb2 != generate_leaderboard_string(data2, n):
         return False
 
+    leaderboard.add_player("Noah")
+    leaderboard.add_player("Sebastian")
+
     return True
 
 
@@ -56,24 +60,17 @@ def logScoreTest1():
 
     """
     db = GoogleSheetsDatabase(PLAYER_SHEET_INDEX, GAME_SHEET_INDEX)
-    names = ["Garrett", "Andrei", "Noah", "Sebastian"]
-    data2 = [[names[0], INITIAL_ELO, 0,0], [names[1], INITIAL_ELO, 0, 0],
-    [names[2], INITIAL_ELO, 0, 0], [names[3], INITIAL_ELO, 0, 0]]
+    names1 = ["Garrett", "Andrei", "Noah", "Sebastian"]
+    names2 = ["Garrett", "Noah", "Andrei", "Sebastian"]
     leaderboard = SnappaLeaderboard(db)
-    for name in names:
-        leaderboard.add_player(name)
 
-    response = leaderboard.log_score(*names, 7, 5)
-    expected = "TBU"
+    print(names1, 7, 5, ":")
+    response = leaderboard.log_score(*names1, 7, 5)
+    print(response)
 
-    if response != expected:
-        return False
-
-    response = leaderboard.log_score(*names, 3, 7)
-    expected = "TBU"
-
-    if response != expected:
-        return False
+    print(names2, 3, 7, ":")
+    response = leaderboard.log_score(*names2, 3, 7)
+    print(response)
 
     return True
 
@@ -94,7 +91,8 @@ def getPlayerHistoryTest1():
 if __name__ == '__main__':
     initialize_game_log()
     initialize_player_sheet()
-    for name, test in [["Add Player Test 1", addPlayerTest1],
+    for name, test in [
+            ["Add Player Test 1", addPlayerTest1],
             ["Log Score Test 1", logScoreTest1],
             ["Get Player History Test 1", getPlayerHistoryTest1]]:
         if test():
