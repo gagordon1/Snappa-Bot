@@ -139,7 +139,9 @@ class SnappaLeaderboard:
         """
 
         t = time.time()
-        self.database.log_game(t, player1, player2, player3, player4, team_1_score, team_2_score)
+        response = self.database.log_game(t, player1, player2, player3, player4, team_1_score, team_2_score)
+        if response != "Game successfully logged!":
+            return response
         if team_1_score > team_2_score:
             winner1 = player1
             winner2 = player2

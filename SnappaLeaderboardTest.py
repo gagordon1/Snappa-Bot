@@ -61,6 +61,7 @@ def logScoreTest1(db):
     print("Testing Log Score...")
     names1 = ["Garrett", "Andrei", "Noah", "Sebastian"]
     names2 = ["Garrett", "Sebastian", "Andrei", "Noah"]
+    broken_names = ["Garret", "Sebastian", "Andrei", "Noah"]
     leaderboard = SnappaLeaderboard(db, k = 10)
     leaderboard.set_k(40) #k to 100 - will fail if changed
 
@@ -75,6 +76,9 @@ def logScoreTest1(db):
     if response!= expected:
         return False
 
+    response = leaderboard.log_score(*broken_names, 7, 6)
+    if response != "Player Garret does not exist in the database!":
+        return False
 
     data2 = [
         ["Andrei", 1, 1537, 17],
