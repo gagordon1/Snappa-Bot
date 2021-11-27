@@ -11,7 +11,7 @@ get leaderboard
 @SnappBot /lb
 
 get player data
-@SnappaBot @<name>
+@SnappaBot /stats @<name>
 
 message
 @SnappaBot *
@@ -60,9 +60,9 @@ def parse_text(text : str, n : int):
                 score = [int(x) for x in data[1].strip().split("-")]
                 return "log score", names + score
 
-            elif "@" in remaining:
-                name = remaining[1:].strip("@ ")
-                return "get player data", [name.strip()]
+            elif "/stats" in remaining:
+                name = remaining[7:].strip(" @")
+                return "get player data", [name]
             else:
                 return "message", []
     except:
@@ -75,7 +75,7 @@ if __name__ == '__main__':
         "@SnappaBot /add @Garrett Gordon",
         "@SnappaBot /score @Garrett Gordon @Andrei @Sebastian @Noah, 7-3",
         "@SnappaBot /lb",
-        "@SnappaBot @Garrett Gordon",
+        "@SnappaBot /stats @Garrett Gordon",
         "@SnappaBot I love you"
     ]:
         print("\n" + "---"*10)
