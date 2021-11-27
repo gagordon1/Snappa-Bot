@@ -1,7 +1,7 @@
 import pymongo
 
 class  MongoDatabase:
-    def __init__(self, test = True):
+    def __init__(self, test = False):
         self.client = pymongo.MongoClient("mongodb+srv://garrettgordon99:Gsurfer123@snappa-database.hvg5y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
         if test:
             self.gameDb = self.client.TestGameDB
