@@ -93,7 +93,7 @@ class SnappaLeaderboard:
         try:
             entries = self.database.get_leaderboard()
             return generate_leaderboard_string(entries, n)
-        except Exception:
+        except:
             raise Exception("Database could not be accessed!")
 
 
