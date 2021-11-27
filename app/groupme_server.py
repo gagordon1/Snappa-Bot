@@ -25,8 +25,8 @@ INITIAL_ELO = 1500
 INITIAL_WINS = 0
 INITIAL_LOSSES = 0
 
-db = DictionaryDatabase()
-# db = GoogleSheetsDatabase(test = True)
+# db = DictionaryDatabase()
+db = GoogleSheetsDatabase()
 slb = SnappaLeaderboard(db)
 
 
