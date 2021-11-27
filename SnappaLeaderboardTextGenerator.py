@@ -1,4 +1,6 @@
 
+LINE_WIDTH = 27
+
 def generate_leaderboard_string(data: list, n : int):
     """Generates a leaderboard string given a list of player data
 
@@ -21,7 +23,7 @@ def generate_leaderboard_string(data: list, n : int):
         rank = i
         entry.insert(0, rank)
         i += 1
-    out_string = "SNAPPA LEADERBOARD\n" + "---"*5 +"\n"
+    out_string = "SNAPPA LEADERBOARD\n" + "-"*LINE_WIDTH +"\n"
 
     for entry in data_sorted:
         rank, name, ELO, w, l = entry
@@ -44,15 +46,16 @@ def generate_score_log_string(data : list, score_1 : int, score_2 : int):
 
     """
     out_string = "Score Logged. {}-{}\n".format(score_1, score_2)
-    out_string += "---"*9 +"\n"
+    out_string += "-"*27 +"\n"
     for d in data:
         name = d[0]
         elo_change = d[3]
+        new_rank = d[1]
         if elo_change >= 0:
-            out_string += "{} +{}\n".format(name, elo_change)
+            out_string += "{}. {} +{}\n".format(new_rank, name, elo_change)
         else:
-            out_string += "{} {}\n".format(name, elo_change)
-    out_string += "---"*9
+            out_string += "{}. {} {}\n".format(new_rank, name, elo_change)
+    out_string += "-"*27
     return out_string
 
 def generate_player_data_string(player : str, rank : int, data : list):
@@ -69,10 +72,10 @@ def generate_player_data_string(player : str, rank : int, data : list):
         Tabulated version of the player data
 
     """
-    out_string = "Player {} stats:\n".format(player)
-    out_string += "---"*5 +"\n"
+    out_string = "Player {}:\n".format(player)
+    out_string += "-"*LINE_WIDTH +"\n"
     out_string += "Rank: {} ELO: {} Record: {}-{}\n".format(rank, *data)
-    out_string += "---"*5 +"\n"
+    out_string += "-"*LINE_WIDTH +"\n"
     return out_string
 
 
