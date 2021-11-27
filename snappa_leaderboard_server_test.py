@@ -67,32 +67,32 @@ def test_1():
     print("Response", response)
 
     response = log_game(*names, 7,5)
-    print("Response", response)
+    print(response)
 
     #add a bad game
     names2 = names[:]
     names2[0] = "p11"
     response = log_game(*names2, 7,5)
-    print("Response", response)
+    print(response)
 
     n = 3
     response = get_leaderboard(n)
-    print("Response\n", response)
+    print(response)
 
     response = log_game(*names, 3,7)
-    print("Response", response)
+    print(response)
 
     response = get_player_data("p1")
-    print("Response", response)
+    print(response)
 
-    n = 4
+    n = 10
     response = get_leaderboard(n)
-    print("Response\n", response)
+    print(response)
 
     response = get_random_message()
     print("Response", response)
 
 
 if __name__ == '__main__':
-    # test_1()
-    load_members()
+    test_1()
+    # load_members()
