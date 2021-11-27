@@ -10,7 +10,7 @@ INITIAL_LOSSES = 0
 
 def load_members():
     response = requests.get(BASE_URL + "/loadMembers")
-    print(response.text)
+    return response
 
 def add_player(player):
     print("Adding player", player)

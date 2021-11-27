@@ -54,7 +54,7 @@ def execute_action(action, parameters):
 
     elif action == "load members":
         response = make_get_request("/loadMembers")
-        return True, reponse
+        return True, response
 
     elif action == "log score":
         data = {
