@@ -120,7 +120,7 @@ class SnappaLeaderboard:
 
         """
         if len(name) > MAX_NAME_LENGTH:
-            raise Exception("Player {}'s name is too long!").format(name)
+            raise Exception("Player {}'s name is too long!".format(name))
         elif name == '':
             raise Exception("Player's name cannot be empty!")
         response = self.database.add_player(name, initial_elo, initial_wins, initial_losses)
