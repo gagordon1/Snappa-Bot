@@ -13,9 +13,14 @@ get leaderboard
 get player data
 @SnappaBot @<name>
 
+message
+@SnappaBot *
+
 error
+malformed
 
 none
+not mentioning snappabot
 
 """
 
@@ -46,7 +51,7 @@ def parse_text(text : str, n : int):
             remaining = text[len(bot_handle):]
             if "/add" in remaining:
                 name = remaining[5:].strip(" @")
-                return "add player", name.strip()
+                return "add player", [name.strip()]
             elif "/lb" in remaining:
                 return "get leaderboard", [n]
             elif "/score" in remaining:
@@ -57,7 +62,9 @@ def parse_text(text : str, n : int):
 
             elif "@" in remaining:
                 name = remaining[1:].strip("@ ")
-                return "get player data", name.strip()
+                return "get player data", [name.strip()]
+            else:
+                return "message", []
     except:
         return "error", []
 
@@ -68,7 +75,8 @@ if __name__ == '__main__':
         "@SnappaBot /add @Garrett Gordon",
         "@SnappaBot /score @Garrett Gordon @Andrei @Sebastian @Noah, 7-3",
         "@SnappaBot /lb",
-        "@SnappaBot @Garrett Gordon"
+        "@SnappaBot @Garrett Gordon",
+        "@SnappaBot I love you"
     ]:
         print("\n" + "---"*10)
         print("Parsing:", message)
