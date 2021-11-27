@@ -154,8 +154,9 @@ def games():
                 data["team_2_score"],
             )
             return response
-        except:
-            return "Game could not be logged."
+        except Exception as e:
+            return str(e)
+        return "Game could not be logged."
     else:
         return "Only POST requests are supported."
 
