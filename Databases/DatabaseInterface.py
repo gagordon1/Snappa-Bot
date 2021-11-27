@@ -86,6 +86,17 @@ class Database:
         """
         pass
 
+    def clear():
+        """Clears the database
+
+        Returns
+        -------
+        str
+            Message saying the database was cleared
+
+        """
+        pass
+
     def get_player_games(self, name : str):
         """Gets a list of games for a player
 

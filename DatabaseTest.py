@@ -108,8 +108,8 @@ if __name__ == '__main__':
     google_sheets_db = GoogleSheetsDatabase(test = True)
     mongo_db = MongoDatabase(test = True)
     for db_name, db in [
-                # ("Dictionary Database",dictionary_db),
-                # ("Google Sheets Database", google_sheets_db),
+                ("Dictionary Database",dictionary_db),
+                ("Google Sheets Database", google_sheets_db),
                 ("Mongo Database", mongo_db)
             ]:
         print("\n")
@@ -124,3 +124,4 @@ if __name__ == '__main__':
                 print(name + " passed!")
             else:
                 print(name + " failed!")
+        db.clear()

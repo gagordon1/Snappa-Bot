@@ -26,6 +26,9 @@ class GoogleSheetsDatabase:
             self.player_wks = self.sh.worksheets()[PLAYER_SHEET_INDEX]
             self.game_wks = self.sh.worksheets()[GAME_SHEET_INDEX]
 
+    def clear(self):
+        self.initialize_game_log()
+        self.initialize_player_sheet()
 
     def initialize_game_log(self):
         self.game_wks.clear(start = START_OF_DATA)

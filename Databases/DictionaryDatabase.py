@@ -11,6 +11,9 @@ class DictionaryDatabase:
                 out.append(game[:])
         return out
 
+    def clear(self):
+        self.games = []
+        self.players = {}
 
     def get_player_data(self, player : str):
         if player not in self.players:

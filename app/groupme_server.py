@@ -4,6 +4,7 @@ import json
 import requests
 from Databases.DictionaryDatabase import DictionaryDatabase
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
+from Databases.MongoDatabase import MongoDatabase
 from SnappaLeaderboard import SnappaLeaderboard
 from HelperFunctions.parse_text import parse_text
 from HelperFunctions.execute_action import execute_action
@@ -26,7 +27,9 @@ INITIAL_WINS = 0
 INITIAL_LOSSES = 0
 
 # db = DictionaryDatabase()
-db = GoogleSheetsDatabase()
+# db = GoogleSheetsDatabase()
+db = MongoDatabase()
+
 slb = SnappaLeaderboard(db)
 
 

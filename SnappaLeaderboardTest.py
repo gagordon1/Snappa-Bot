@@ -3,6 +3,7 @@ from SnappaLeaderboard import SnappaLeaderboard
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 from Databases.DictionaryDatabase import DictionaryDatabase
+from Databases.MongoDatabase import MongoDatabase
 from tabulate import tabulate
 from elosports.elo import Elo
 
@@ -150,8 +151,11 @@ if __name__ == '__main__':
     ### GOOGLE SHEETS TEST ####
     # db = GoogleSheetsDatabase(test = True)
 
+    # ### NAIVE DATABASE TEST ###
+    # db = DictionaryDatabase()
+
     ### NAIVE DATABASE TEST ###
-    db = DictionaryDatabase()
+    db = MongoDatabase(test = True)
 
     print("\n")
     print("Testing Snappa Leaderboard...\n")

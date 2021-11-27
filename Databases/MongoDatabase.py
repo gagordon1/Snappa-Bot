@@ -9,14 +9,17 @@ class  MongoDatabase:
 
             self.playerDb = self.client.TestPlayerDB
             self.player = self.playerDb.TestPlayer
-            self.game.drop()
-            self.player.drop()
+            self.clear()
         else:
             self.gameDb = self.client.GameDB
             self.game = self.gameDb.Game
 
             self.playerDb = self.client.PlayerDB
             self.player = self.playerDb.Player
+
+    def clear(self):
+        self.game.drop()
+        self.player.drop()
 
 
     def get_player_data(self, player : str):
