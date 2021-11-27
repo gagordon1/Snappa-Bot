@@ -161,6 +161,8 @@ class SnappaLeaderboard:
         try:
             rank = self.get_rank(player)
             data = self.database.get_player_data(player)
+            if type(data) is str:
+                raise Exception(data)
             return generate_player_data_string(player, rank, data)
         except:
             raise Exception("Player data could not be accessed!")
