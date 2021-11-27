@@ -56,21 +56,26 @@ slb = SnappaLeaderboard(db)
 def home():
 
     if request.method == "GET":
-        _,response = execute_action("get leaderboard", [100])
-        return response
+        try:
+            _,response = execute_action("get leaderboard", [100])
+            return response
+        except:
+            return "Could not get leaderboard."
     elif request.method == "POST":
-        data = json.loads(request.data.decode("UTF-8"))
-        text = data["text"]
-        name = data["name"]
-        action, parameters = parse_text(text, LEADERBOARD_SIZE,
-                INITIAL_ELO, INITIAL_WINS, INITIAL_LOSSES, name)
-        respond, response = execute_action(action, parameters)
-        print(respond, response)
-        if respond:
-            send_to_groupme(BASE_POST_URL, BOT_ID, response)
-        return response
+        try:
+            data = json.loads(request.data.decode("UTF-8"))
+            text = data["text"]
+            name = data["name"]
+            action, parameters = parse_text(text, LEADERBOARD_SIZE,
+                    INITIAL_ELO, INITIAL_WINS, INITIAL_LOSSES, name)
+            respond, response = execute_action(action, parameters)
+            if respond:
+                send_to_groupme(BASE_POST_URL, BOT_ID, response)
+            return response
+        except:
+            return "Could not process groupme input."
     else:
-        return "WELCOME TO SNAPPA BOT"
+        return "Only POST and GET requests are supported."
 
 """
 POST
@@ -104,21 +109,19 @@ def players():
                 data["initial_losses"]
             )
             return "Player {} successfully added!".format(data["name"])
-        except Exception as e:
-            return str(e)
-        return "Error adding player!"
+        except:
+            return "Error adding player."
 
     elif request.method == "GET":
         data = request.json
         try:
             response = slb.get_player_data(data["name"])
             return response
-        except Exception as e:
-            return str(e)
-        return "Player data could not be accessed!"
+        except:
+            return "Player data could not be accessed."
 
     else:
-        return "Only POST and GET requests are supported!"
+        return "Only POST and GET requests are supported."
 
 
 """
@@ -150,12 +153,10 @@ def games():
                 data["team_2_score"],
             )
             return response
-        except Exception as e:
-            return str(e)
-
-        return "Game could not be logged!"
+        except:
+            return "Game could not be logged."
     else:
-        return "Only POST requests are supported!"
+        return "Only POST requests are supported."
 
 """
 GET
@@ -173,11 +174,11 @@ def leaderboard():
         try:
             response = slb.get_leaderboard(n)
             return response
-        except Exception as e:
-            return "Database could not be accessed!"
+        except:
+            return "Database could not be accessed."
 
     else:
-        return "Only GET requests are supported!"
+        return "Only GET requests are supported."
 
 """
 GET
@@ -197,11 +198,11 @@ def loadMembers():
                 except:
                     print("Error adding player {}".format(name))
             return "Loaded all groupme members into the system."
-        except Exception as e:
+        except:
             return "Could not load members."
 
     else:
-        return "Only GET requests are supported!"
+        return "Only GET requests are supported."
 
 """
 GET
@@ -215,10 +216,10 @@ def message():
             response = slb.generate_message()
             return response
         except:
-            return "Message could not be generated!"
+            return "Message could not be generated."
 
     else:
-        return "Only GET requests are supported!"
+        return "Only GET requests are supported."
 
 if __name__ == "__main__":
     app.run(debug=True, port=PORT)
