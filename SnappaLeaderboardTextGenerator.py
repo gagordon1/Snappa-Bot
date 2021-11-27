@@ -22,15 +22,15 @@ def generate_leaderboard_string(data: list, n : int):
         rank = i
         entry.insert(0, rank)
         i += 1
-    out_string = "SNAPPA LEADERBOARD\n" + "---"*5
+    out_string = "SNAPPA LEADERBOARD\n" + "---"*5 +"\n"
 
     for entry in data_sorted:
-        name, rank, ELO, w, l = entry
-        out_string += "{}. {} {} {}-{}".format(rank, name, ELO, w, l)
+        rank, name, ELO, w, l = entry
+        out_string += "{}. {} {} {}-{}\n".format(rank, name, ELO, w, l)
     return out_string
 
 
-def generate_score_log_string(data : list):
+def generate_score_log_string(data : list, score_1 : int, score_2 : int):
     """Gets the log string after a game
 
     Parameters
@@ -44,7 +44,17 @@ def generate_score_log_string(data : list):
         Tabulated version of this information
 
     """
-    return tabulate(data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    out_string = "Score Logged! {}-{}\n".format(score_1, score_2)
+    out_string += "---"*5 +"\n"
+    for d in data:
+        name = d[0]
+        elo_change = d[3]
+        if elo_change >= 0:
+            out_string += "{} +{}\n".format(name, elo_change)
+        else:
+            out_string += "{} {}\n".format(name, elo_change)
+    out_string += "---"*5
+    return out_string
 
 def generate_player_data_string(player : str, rank : int, data : list):
     """Gets player data as a tabulated string
@@ -60,7 +70,11 @@ def generate_player_data_string(player : str, rank : int, data : list):
         Tabulated version of the player data
 
     """
-    return tabulate([[player] + [rank] + data], headers = ["Name", "Rank", "ELO", "Wins", "Losses"])
+    out_string = "Player {} stats:\n".format(player)
+    out_string += "---"*5 +"\n"
+    out_string += "Rank: {} ELO: {} Record: {}-{}\n".format(rank, *data)
+    out_string += "---"*5 +"\n"
+    return out_string
 
 
 

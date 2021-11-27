@@ -245,7 +245,7 @@ class SnappaLeaderboard:
             entry.insert(1, ranks[name])
 
 
-        return generate_score_log_string(sorted(out, key = lambda x : x[1])) #sort on rank
+        return generate_score_log_string(sorted(out, key = lambda x : x[1]), team_1_score, team_2_score) #sort on rank
 
 
 
