@@ -28,8 +28,8 @@ def generate_leaderboard_string(data: list, n : int):
 
     leaderboard_title = "SNAPPA LEADERBOARD"
     x = GROUPME_ADJUSTMENT_WIDTH
-    out_string += "-"*LEADERBOARD_WIDTH +"\n"
-    out_string = " "*x +leaderboard_title + " "*x +"\n"
+    out_string = "-"*LEADERBOARD_WIDTH +"\n"
+    out_string += " "*x +leaderboard_title + " "*x +"\n"
     out_string += "-"*LEADERBOARD_WIDTH +"\n"
     for entry in data_sorted:
         rank, name, ELO, w, l = entry

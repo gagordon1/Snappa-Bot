@@ -56,7 +56,8 @@ slb = SnappaLeaderboard(db)
 def home():
 
     if request.method == "GET":
-        return "WELCOME TO SNAPPA BOT BITCH"
+        ,response = execute_action("get leaderboard", [100])
+        return response
     elif request.method == "POST":
         data = json.loads(request.data.decode("UTF-8"))
         text = data["text"]
