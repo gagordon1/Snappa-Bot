@@ -12,6 +12,7 @@ def home():
     if request.method == "GET":
         return "WELCOME TO SNAPPA BOT BITCH"
     elif request.method == "POST":
+        print(request.data)
         return request.data
     else:
         return "WELCOME TO SNAPPA BOT"
