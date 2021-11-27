@@ -1,4 +1,3 @@
-from tabulate import tabulate
 
 def generate_leaderboard_string(data: list, n : int):
     """Generates a leaderboard string given a list of player data
@@ -45,7 +44,7 @@ def generate_score_log_string(data : list, score_1 : int, score_2 : int):
 
     """
     out_string = "Score Logged! {}-{}\n".format(score_1, score_2)
-    out_string += "---"*5 +"\n"
+    out_string += "---"*9 +"\n"
     for d in data:
         name = d[0]
         elo_change = d[3]
@@ -53,7 +52,7 @@ def generate_score_log_string(data : list, score_1 : int, score_2 : int):
             out_string += "{} +{}\n".format(name, elo_change)
         else:
             out_string += "{} {}\n".format(name, elo_change)
-    out_string += "---"*5
+    out_string += "---"*9
     return out_string
 
 def generate_player_data_string(player : str, rank : int, data : list):

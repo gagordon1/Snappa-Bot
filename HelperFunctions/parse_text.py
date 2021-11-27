@@ -2,7 +2,7 @@
 PARSE STRUCTURE
 
 add player
-@SnappaBot /add @<name>
+@SnappaBot /add @<name> | @SnappaBot /add @me
 
 log score
 @SnappaBot /score @<name> @<name> @<name> @<name>, <score_1> <score_2> |
@@ -12,7 +12,7 @@ get leaderboard
 @SnappBot /lb
 
 get player data
-@SnappaBot /stats @<name>
+@SnappaBot /stats @<name> | @SnappaBot /stats @me
 
 message
 @SnappaBot *
@@ -66,6 +66,8 @@ def parse_text(text : str,
             remaining = text[len(bot_handle):]
             if "/add" in remaining:
                 name = remaining[5:].strip(" @")
+                if name == "me":
+                    return "add player", [sender, initial_elo, initial_wins, initial_losses]
                 return "add player", [name.strip(), initial_elo, initial_wins, initial_losses]
             elif "/lb" in remaining:
                 return "get leaderboard", [n]
@@ -79,6 +81,8 @@ def parse_text(text : str,
 
             elif "/stats" in remaining:
                 name = remaining[7:].strip(" @")
+                if name == "me":
+                    return "get player data", [sender]
                 return "get player data", [name]
             else:
                 return "get message", []

@@ -80,7 +80,7 @@ def logScoreTest1(db):
         ["Noah", 3, 1480, -20],
         ["Sebastian", 4, 1480, -20]
     ]
-    expected = generate_score_log_string(data)
+    expected = generate_score_log_string(data, 7, 5)
     if response!= expected:
         return False
 
@@ -102,7 +102,7 @@ def logScoreTest1(db):
         ["Sebastian", 4, 1463, -17]
     ]
     response = leaderboard.log_score(*names1, 7, 5)
-    expected = generate_score_log_string(data2)
+    expected = generate_score_log_string(data2, 7, 5)
     if response!= expected:
         return False
 
@@ -114,7 +114,7 @@ def logScoreTest1(db):
         ["Noah", 4, 1443, -20]
     ]
     response = leaderboard.log_score(*names2, 7, 5)
-    expected = generate_score_log_string(data3)
+    expected = generate_score_log_string(data3, 7,5)
     if response!= expected:
         return False
 
