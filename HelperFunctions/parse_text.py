@@ -94,7 +94,8 @@ def parse_text(text : str,
                 return "get message", []
     except:
         return "error", []
-
+    if bot_handle in text:
+        return "get message", []
     return "none", []
 
 if __name__ == '__main__':
