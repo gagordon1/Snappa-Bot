@@ -1,6 +1,7 @@
 from time import time
 from Databases.DictionaryDatabase import DictionaryDatabase
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
+from Databases.MongoDatabase import MongoDatabase
 
 def addPlayerTest1(db):
     print("Testing add player...")
@@ -105,9 +106,11 @@ def logGameTest1(db):
 if __name__ == '__main__':
     dictionary_db = DictionaryDatabase()
     google_sheets_db = GoogleSheetsDatabase(test = True)
+    mongo_db = MongoDatabase(test = True)
     for db_name, db in [
-                ("Dictionary Database",dictionary_db),
-                ("Google Sheets Database", google_sheets_db)
+                # ("Dictionary Database",dictionary_db),
+                # ("Google Sheets Database", google_sheets_db),
+                ("Mongo Database", mongo_db)
             ]:
         print("\n")
         print("Testing {}...".format(db_name))
