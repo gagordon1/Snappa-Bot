@@ -5,9 +5,9 @@ import requests
 from Databases.DictionaryDatabase import DictionaryDatabase
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 from SnappaLeaderboard import SnappaLeaderboard
-from helper_functions.parse_text import parse_text
-from helper_functions.execute_action import execute_action
-from helper_functions.send_to_groupme import send_to_groupme
+from HelperFunctions.parse_text import parse_text
+from HelperFunctions.execute_action import execute_action
+from HelperFunctions.send_to_groupme import send_to_groupme
 
 import sys
 
@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 GROUPME_ID = 163797812604437644 #TEST GROUP
 BOT_ID = "d9ce63918a5ba0a22008fa71dc"
-BASE_URL = "https://api.groupme.com/v3/bots/post"
+BASE_POST_URL = "https://api.groupme.com/v3/bots/post"
 
 LEADERBOARD_SIZE = 20
 
@@ -55,7 +55,7 @@ def home():
         action, parameters = parse_text(text, LEADERBOARD_SIZE)
         respond, response = execute_action(action, parameters)
         if respond:
-            send_to_groupme(response)
+            send_to_groupme(BASE_POST_URL, BOT_ID, response)
         return response
     else:
         return "WELCOME TO SNAPPA BOT"
