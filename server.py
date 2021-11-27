@@ -3,6 +3,7 @@ from flask import Flask, request, redirect, g, render_template, jsonify
 import requests
 import uuid
 from Databases.DictionaryDatabase import DictionaryDatabase
+from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 from SnappaLeaderboard import SnappaLeaderboard
 import sys
 
@@ -11,6 +12,7 @@ PORT = 8080
 app = Flask(__name__)
 
 db = DictionaryDatabase()
+# db = GoogleSheetsDatabase(test = True)
 slb = SnappaLeaderboard(db)
 
 
@@ -135,7 +137,16 @@ GET
 """
 @ app.route("/message", methods=["GET"])
 def message():
-    pass
+    if request.method == "GET":
+        try:
+            response = slb.generate_message()
+            return response
+        except:
+            return "Message could not be generated!"
+
+    else:
+        return "Only GET requests are supported!"
+
 
 
 if __name__ == "__main__":

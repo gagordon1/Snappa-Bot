@@ -1,6 +1,6 @@
 import requests
 
-BASE_URL = "http://127.0.0.1:8080/"
+BASE_URL = "http://127.0.0.1:8080"
 
 INITIAL_ELO = 1500
 INITIAL_WINS = 0
@@ -82,6 +82,9 @@ def test_1():
     n = 4
     response = get_leaderboard(n)
     print("Response\n", response)
+
+    response = get_random_message()
+    print("Response", response)
 
 
 if __name__ == '__main__':
