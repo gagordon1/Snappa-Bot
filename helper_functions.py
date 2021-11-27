@@ -8,18 +8,3 @@ def calculate_elo_change(winner1, w_elo_1, winner2, w_elo_2, loser1, l_elo_1, lo
 
     elo_change = k*(1-result)
     return int(elo_change)
-
-API_URL = "https://snappa-bot-groupme-server.herokuapp.com"
-
-def execute_action(action, parameters):
-    if action == "add player":
-        pass
-    elif action == "log score":
-        pass
-
-    elif action == "get leaderboard":
-        pass
-    elif action == "get player data":
-        pass
-    elif action == "none":
-        pass
