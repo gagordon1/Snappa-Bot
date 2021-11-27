@@ -1,5 +1,5 @@
 
-LINE_WIDTH = 27
+LINE_WIDTH = 30
 
 def generate_leaderboard_string(data: list, n : int):
     """Generates a leaderboard string given a list of player data
@@ -23,7 +23,9 @@ def generate_leaderboard_string(data: list, n : int):
         rank = i
         entry.insert(0, rank)
         i += 1
-    out_string = "SNAPPA LEADERBOARD\n" + "-"*LINE_WIDTH +"\n"
+    leaderboard_title = "SNAPPA LEADERBOARD\n"
+    x = int((LINE_WIDTH - len(leaderboard_title))/2)
+    out_string = " "*x +leaderboard_title + " "*x + "\n" + "-"*LINE_WIDTH +"\n"
 
     for entry in data_sorted:
         rank, name, ELO, w, l = entry
