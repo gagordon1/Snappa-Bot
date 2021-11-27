@@ -14,6 +14,9 @@ get leaderboard
 get player data
 @SnappaBot /stats @<name> | @SnappaBot /stats @me
 
+load members
+@SnappaBot /loadMembers
+
 message
 @SnappaBot *
 
@@ -78,6 +81,9 @@ def parse_text(text : str,
                 if names[0] == "me":
                     names[0] = sender
                 return "log score", names + score
+
+            elif "/loadMembers" in remaining:
+                return "load members", []
 
             elif "/stats" in remaining:
                 name = remaining[7:].strip(" @")

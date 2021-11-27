@@ -52,6 +52,10 @@ def execute_action(action, parameters):
         response = make_post_request("/players", data = data)
         return True, response
 
+    elif action == "load members":
+        response = make_get_request("/loadMembers")
+        return True, reponse
+
     elif action == "log score":
         data = {
             "player1" : parameters[0],

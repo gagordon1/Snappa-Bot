@@ -8,6 +8,10 @@ INITIAL_ELO = 1500
 INITIAL_WINS = 0
 INITIAL_LOSSES = 0
 
+def load_members():
+    response = requests.get(BASE_URL + "/loadMembers")
+    print(response.text)
+
 def add_player(player):
     print("Adding player", player)
     data = {
@@ -90,4 +94,5 @@ def test_1():
 
 
 if __name__ == '__main__':
-    test_1()
+    # test_1()
+    load_members()

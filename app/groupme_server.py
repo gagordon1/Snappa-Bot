@@ -17,9 +17,11 @@ PORT = 8080
 
 app = Flask(__name__)
 
-GROUPME_ID = 163797812604437644 #TEST GROUP
+GROUPME_ID = 83775365 #TEST GROUP
 BOT_ID = "d9ce63918a5ba0a22008fa71dc"
 BASE_POST_URL = "https://api.groupme.com/v3/bots/post"
+BASE_GROUPS_URL = "https://api.groupme.com/v3/groups"
+ACCESS_TOKEN = "ttPm9qd6GIZp4Yxgq0IvOMfjfPwNYEVlrudzHREA"
 
 LEADERBOARD_SIZE = 20
 INITIAL_ELO = 1500
@@ -118,8 +120,6 @@ def players():
         return "Only POST and GET requests are supported!"
 
 
-
-
 """
 POST
     json data
@@ -174,6 +174,30 @@ def leaderboard():
             return response
         except Exception as e:
             return "Database could not be accessed!"
+
+    else:
+        return "Only GET requests are supported!"
+
+"""
+GET
+    Response:
+    "Loaded all groupme members into the system." | "Could not load members."
+"""
+@ app.route("/loadMembers", methods=["GET"])
+def loadMembers():
+    if request.method == "GET":
+        try:
+            response = requests.get(BASE_GROUPS_URL + "/" + str(GROUPME_ID), params = {"token" : ACCESS_TOKEN})
+            data = response.json()["response"]
+            for member in data["members"]:
+                name = member["nickname"]
+                try:
+                    slb.add_player(name, INITIAL_ELO, INITIAL_WINS, INITIAL_LOSSES)
+                except:
+                    print("Error adding player {}".format(name))
+            return "Loaded all groupme members into the system."
+        except Exception as e:
+            return "Could not load members."
 
     else:
         return "Only GET requests are supported!"
