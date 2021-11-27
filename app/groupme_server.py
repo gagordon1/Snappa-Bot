@@ -5,6 +5,7 @@ import requests
 from Databases.DictionaryDatabase import DictionaryDatabase
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 from SnappaLeaderboard import SnappaLeaderboard
+from GroupmeTextParser import parse_text
 import sys
 
 
@@ -13,6 +14,7 @@ PORT = 8080
 app = Flask(__name__)
 
 GROUPME_ID = 163797812604437644 #TEST GROUP
+
 
 """
 #POST requests from groupme appear like:
@@ -31,8 +33,6 @@ GROUPME_ID = 163797812604437644 #TEST GROUP
     "user_id":"38446275"
 }
 """
-
-
 @ app.route("/", methods=["GET", "POST"])
 def home():
 
@@ -41,7 +41,8 @@ def home():
     elif request.method == "POST":
         data = json.loads(request.data.decode("UTF-8"))
         text = data["text"]
-        author = data["name"]
+        print(text)
+        # parse_text(text)
         return request.data
     else:
         return "WELCOME TO SNAPPA BOT"

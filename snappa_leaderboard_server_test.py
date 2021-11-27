@@ -1,6 +1,8 @@
 import requests
 
-BASE_URL = "https://snappa-bot-groupme-server.herokuapp.com/"
+# BASE_URL = "https://snappa-bot-groupme-server.herokuapp.com" #DEPLOYED
+BASE_URL = "http://127.0.0.1:5000" #TEST
+
 
 INITIAL_ELO = 1500
 INITIAL_WINS = 0
