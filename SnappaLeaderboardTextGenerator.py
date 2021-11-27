@@ -1,6 +1,6 @@
 
 LINE_WIDTH = 26
-LEADERBOARD_WIDTH = 34
+LEADERBOARD_WIDTH = 30
 
 def generate_leaderboard_string(data: list, n : int):
     """Generates a leaderboard string given a list of player data
