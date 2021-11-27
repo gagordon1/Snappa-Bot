@@ -144,7 +144,7 @@ class SnappaLeaderboard:
     def get_rank(self, player : str):
         return self.get_ranks([player])[player]
 
-    def get_player_data(self, player):
+    def get_player_data(self, player : str):
         """Gets player data
 
         Parameters
@@ -155,17 +155,17 @@ class SnappaLeaderboard:
         Returns
         -------
         str
-            tabulated data with name, rank, elo, wins, losses
+            tabulated data with name, rank, elo, wins, losses or error message
 
         """
         try:
             rank = self.get_rank(player)
             data = self.database.get_player_data(player)
-            if type(data) is str:
-                raise Exception(data)
-            return generate_player_data_string(player, rank, data)
         except:
             raise Exception("Player data could not be accessed!")
+        if data == "Player {} does not exist in the database!".format(player):
+            raise Exception(data)
+        return generate_player_data_string(player, rank, data)
 
 
 
