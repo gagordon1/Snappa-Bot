@@ -22,7 +22,13 @@ def generate_leaderboard_string(data: list, n : int):
         rank = i
         entry.insert(0, rank)
         i += 1
-    return tabulate(data_sorted, headers = ["Rank","Name", "ELO", "Wins", "Losses"])
+    out_string = "SNAPPA LEADERBOARD\n" + "---"*5
+
+    for entry in data_sorted:
+        name, rank, ELO, w, l = entry
+        out_string += "{}. {} {} {}-{}".format(rank, name, ELO, w, l)
+    return out_string
+
 
 def generate_score_log_string(data : list):
     """Gets the log string after a game

@@ -1,10 +1,9 @@
 
 from SnappaLeaderboard import SnappaLeaderboard
-from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
+from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string, generate_player_data_string
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 from Databases.DictionaryDatabase import DictionaryDatabase
 from Databases.MongoDatabase import MongoDatabase
-from tabulate import tabulate
 from elosports.elo import Elo
 
 INITIAL_ELO = 1500
@@ -81,7 +80,7 @@ def logScoreTest1(db):
         ["Noah", 3, 1480, -20],
         ["Sebastian", 4, 1480, -20]
     ]
-    expected = tabulate(data, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    expected = generate_score_log_string(data)
     if response!= expected:
         return False
 
@@ -103,7 +102,7 @@ def logScoreTest1(db):
         ["Sebastian", 4, 1463, -17]
     ]
     response = leaderboard.log_score(*names1, 7, 5)
-    expected = tabulate(data2, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    expected = generate_score_log_string(data2)
     if response!= expected:
         return False
 
@@ -115,7 +114,7 @@ def logScoreTest1(db):
         ["Noah", 4, 1443, -20]
     ]
     response = leaderboard.log_score(*names2, 7, 5)
-    expected = tabulate(data3, headers = ["Name", "New Rank", "New ELO", "ELO Change"])
+    expected = generate_score_log_string(data3)
     if response!= expected:
         return False
 
@@ -124,8 +123,8 @@ def logScoreTest1(db):
 def getPlayerDataTest1(db):
     leaderboard = SnappaLeaderboard(db)
     response = leaderboard.get_player_data("Garrett")
-    expected = tabulate([["Garrett",1, 1557, 3, 0]],
-        headers = ["Name", "Rank", "ELO", "Wins", "Losses"])
+    data = [1557, 3, 0]
+    expected = generate_player_data_string("Garrett", 1, data)
     if response != expected:
         return False
     return True

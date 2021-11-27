@@ -186,7 +186,7 @@ class SnappaLeaderboard:
             throws an exception if game is not successfully logged
         """
 
-        t = time.time()
+        t = int(time.time())
         try:
             response = self.database.log_game(t, player1, player2, player3, player4, team_1_score, team_2_score)
         except Exception as e:
