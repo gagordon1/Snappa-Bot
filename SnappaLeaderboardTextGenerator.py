@@ -43,7 +43,7 @@ def generate_score_log_string(data : list, score_1 : int, score_2 : int):
         Tabulated version of this information
 
     """
-    out_string = "Score Logged! {}-{}\n".format(score_1, score_2)
+    out_string = "Score Logged. {}-{}\n".format(score_1, score_2)
     out_string += "---"*9 +"\n"
     for d in data:
         name = d[0]
