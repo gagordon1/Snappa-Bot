@@ -7,7 +7,7 @@ PORT = 8080
 app = Flask(__name__)
 
 
-@ app.route("/", methods=["GET"])
+@ app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "GET":
         return "WELCOME TO SNAPPA BOT BITCH"
