@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @ app.route("/", methods=["GET"])
 def home():
-    return "WELCOME TO SNAPPA BOT BITCH"
+    return requst.text
 
 if __name__ == "__main__":
     app.run(debug=True, port=PORT)
