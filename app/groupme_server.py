@@ -109,8 +109,9 @@ def players():
                 data["initial_losses"]
             )
             return "Player {} successfully added!".format(data["name"])
-        except:
-            return "Error adding player."
+        except Exception as e:
+            return str(e)
+        return "Error adding player."
 
     elif request.method == "GET":
         data = request.json
