@@ -5,7 +5,10 @@ import requests
 from Databases.DictionaryDatabase import DictionaryDatabase
 from Databases.GoogleSheetsDatabase import GoogleSheetsDatabase
 from SnappaLeaderboard import SnappaLeaderboard
-from GroupmeTextParser import parse_text
+from helper_functions.parse_text import parse_text
+from helper_functions.execute_action import execute_action
+from helper_functions.send_to_groupme import send_to_groupme
+
 import sys
 
 
@@ -14,6 +17,9 @@ PORT = 8080
 app = Flask(__name__)
 
 GROUPME_ID = 163797812604437644 #TEST GROUP
+BOT_ID = "d9ce63918a5ba0a22008fa71dc"
+BASE_URL = "https://api.groupme.com/v3/bots/post"
+
 
 
 """
@@ -41,9 +47,11 @@ def home():
     elif request.method == "POST":
         data = json.loads(request.data.decode("UTF-8"))
         text = data["text"]
-        print(text)
-        # parse_text(text)
-        return request.data
+        action, parameters = parse_text(text)
+        respond, response = execute_action(action, parameters)
+        if respond:
+            send_to_groupme(response)
+        return response
     else:
         return "WELCOME TO SNAPPA BOT"
 

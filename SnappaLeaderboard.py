@@ -1,6 +1,6 @@
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
 from SnappaLeaderboardTextGenerator import generate_player_data_string
-from elo_functions import calculate_elo_change
+from helper_functions.elo_functions import calculate_elo_change
 from tabulate import tabulate
 from Databases.MessageDatabase import messages
 import random
