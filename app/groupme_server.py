@@ -58,7 +58,6 @@ def home():
         name = data["name"]
         action, parameters = parse_text(text, LEADERBOARD_SIZE,
                 INITIAL_ELO, INITIAL_WINS, INITIAL_LOSSES, name)
-        print(action, parameters)
         respond, response = execute_action(action, parameters)
         print(respond, response)
         if respond:
@@ -171,8 +170,7 @@ def leaderboard():
             response = slb.get_leaderboard(n)
             return response
         except Exception as e:
-            return str(e)
-        return "Database could not be accessed!"
+            return "Database could not be accessed!"
 
     else:
         return "Only GET requests are supported!"
