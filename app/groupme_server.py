@@ -9,8 +9,7 @@ app = Flask(__name__)
 
 @ app.route("/", methods=["GET", "POST"])
 def home():
-    print(request.data)
-    print(request.text)
+    print(request.data.decode("UTF-8"))
     if request.method == "GET":
         return "WELCOME TO SNAPPA BOT BITCH"
     elif request.method == "POST":
