@@ -5,7 +5,8 @@ add player
 @SnappaBot /add @<name>
 
 log score
-@SnappaBot /score @<name> @<name> @<name> @<name>, <score_1> <score_2>
+@SnappaBot /score @<name> @<name> @<name> @<name>, <score_1> <score_2> |
+@SnappaBot /score @me @<name> @<name> @<name>, <score_1> <score_2>
 
 get leaderboard
 @SnappBot /lb
@@ -26,7 +27,13 @@ not mentioning snappabot
 
 BOT_NAME = "SnappaBot"
 
-def parse_text(text : str, n : int):
+def parse_text(text : str,
+        n : int,
+        initial_elo : int,
+        initial_wins : int,
+        initial_losses : int,
+        sender : str
+    ):
     """Parses a new message in the groupme
 
     Parameters
@@ -35,6 +42,14 @@ def parse_text(text : str, n : int):
         Incoming message text
     n : int
         Number of leaderboard entries to return
+    initial_elo : int
+        initial elo for a player
+    initial_wins : int
+        initial wins for a player
+    initial_losses : int
+        initial losses for a player
+    sender : str
+        person who sent the message
 
     Returns
     -------
@@ -51,20 +66,22 @@ def parse_text(text : str, n : int):
             remaining = text[len(bot_handle):]
             if "/add" in remaining:
                 name = remaining[5:].strip(" @")
-                return "add player", [name.strip()]
+                return "add player", [name.strip(), initial_elo, initial_wins, initial_losses]
             elif "/lb" in remaining:
                 return "get leaderboard", [n]
             elif "/score" in remaining:
                 data = remaining[7:].strip().split(",")
                 names = [name.strip() for name in data[0].strip("@").split("@")]
                 score = [int(x) for x in data[1].strip().split("-")]
+                if names[0] == "me":
+                    names[0] = sender
                 return "log score", names + score
 
             elif "/stats" in remaining:
                 name = remaining[7:].strip(" @")
                 return "get player data", [name]
             else:
-                return "message", []
+                return "get message", []
     except:
         return "error", []
 

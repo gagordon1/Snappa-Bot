@@ -21,10 +21,10 @@ def send_to_groupme(base_url, bot_id, text):
     """
     data = {
         "bot_id" : bot_id,
-        "text" : message
+        "text" : text
     }
     try:
-        requests.post(BASE_URL, json = data)
+        requests.post(base_url, json = data)
         response = "Successfully sent {} in the groupme".format(message)
     except:
         response = "Failed to post message!"

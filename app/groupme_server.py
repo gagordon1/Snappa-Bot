@@ -21,6 +21,9 @@ BOT_ID = "d9ce63918a5ba0a22008fa71dc"
 BASE_POST_URL = "https://api.groupme.com/v3/bots/post"
 
 LEADERBOARD_SIZE = 20
+INITIAL_ELO = 1500
+INITIAL_WINS = 0
+INITIAL_LOSSES = 0
 
 db = DictionaryDatabase()
 # db = GoogleSheetsDatabase(test = True)
@@ -52,8 +55,12 @@ def home():
     elif request.method == "POST":
         data = json.loads(request.data.decode("UTF-8"))
         text = data["text"]
-        action, parameters = parse_text(text, LEADERBOARD_SIZE)
+        name = data["name"]
+        action, parameters = parse_text(text, LEADERBOARD_SIZE,
+                INITIAL_ELO, INITIAL_WINS, INITIAL_LOSSES, name)
+        print(action, parameters)
         respond, response = execute_action(action, parameters)
+        print(respond, response)
         if respond:
             send_to_groupme(BASE_POST_URL, BOT_ID, response)
         return response
