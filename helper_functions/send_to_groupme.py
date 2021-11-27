@@ -15,17 +15,20 @@ def send_to_groupme(base_url, bot_id, text):
 
     Returns
     -------
-    type
-        Description of returned object.
+    str
+        groupme response | "Failed to post message!"
 
     """
     data = {
         "bot_id" : bot_id,
         "text" : message
     }
-    response = requests.post(BASE_URL, json = data)
-    print(response.text)
-
+    try:
+        requests.post(BASE_URL, json = data)
+        response = "Successfully sent {} in the groupme".format(message)
+    except:
+        response = "Failed to post message!"
+    return response
 
 if __name__ == '__main__':
     BOT_ID = "d9ce63918a5ba0a22008fa71dc"

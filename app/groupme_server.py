@@ -20,6 +20,11 @@ GROUPME_ID = 163797812604437644 #TEST GROUP
 BOT_ID = "d9ce63918a5ba0a22008fa71dc"
 BASE_URL = "https://api.groupme.com/v3/bots/post"
 
+LEADERBOARD_SIZE = 20
+
+db = DictionaryDatabase()
+# db = GoogleSheetsDatabase(test = True)
+slb = SnappaLeaderboard(db)
 
 
 """
@@ -47,17 +52,13 @@ def home():
     elif request.method == "POST":
         data = json.loads(request.data.decode("UTF-8"))
         text = data["text"]
-        action, parameters = parse_text(text)
+        action, parameters = parse_text(text, LEADERBOARD_SIZE)
         respond, response = execute_action(action, parameters)
         if respond:
             send_to_groupme(response)
         return response
     else:
         return "WELCOME TO SNAPPA BOT"
-
-db = DictionaryDatabase()
-# db = GoogleSheetsDatabase(test = True)
-slb = SnappaLeaderboard(db)
 
 """
 POST
