@@ -1,5 +1,9 @@
 import requests
-API_URL = "https://snappa-bot-groupme-server.herokuapp.com"
+# API_URL = "https://snappa-bot-groupme-server.herokuapp.com"
+API_URL = "http://127.0.0.1:5000/"
+
+HELP_MESSAGE = "Welcome to SnappaBot.\nUseful Commands:\n@SnappaBot /add @<name> - adds a name\n@SnappaBot /score @<name> @<name> @<name> @<name>, <score_1> <score_2> - logs a score\n@SnappBot /lb - gets the leaderboard\n@SnappaBot /stats @<name> - gets stats for a player"
+
 
 def make_post_request(endpoint, data = None):
     try:
@@ -42,6 +46,8 @@ def execute_action(action, parameters):
     """
     if action == "error":
         return True, "There was an error parsing the groupme command, make sure the command was formatted properly."
+    elif action == "get help":
+        return True, HELP_MESSAGE
     elif action == "add player":
         data = {
             "name" : parameters[0],
@@ -96,6 +102,11 @@ if __name__ == '__main__':
         parameters = [name, 1500, 0, 0]
         respond, response = execute_action(action, parameters)
         print(response)
+
+    action = "get help"
+    parameters =[]
+    respond, response = execute_action(action, parameters)
+    print(response)
 
     action = "log score"
     parameters =["Garrett", "Noah", "Sebastian", "Andrei", 7, 2]

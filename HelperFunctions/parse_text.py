@@ -17,6 +17,9 @@ get player data
 load members
 @SnappaBot /loadMembers
 
+get help
+@SnappaBot /help
+
 message
 @SnappaBot *
 
@@ -67,7 +70,10 @@ def parse_text(text : str,
         if len(text) >= len(bot_handle) and text[:len(bot_handle)] == bot_handle:
             #addressing snappa bot
             remaining = text[len(bot_handle):]
-            if "/add" in remaining:
+            if "/help" in remaining:
+                return "get help", []
+
+            elif "/add" in remaining:
                 name = remaining[5:].strip(" @")
                 if name == "me":
                     return "add player", [sender, initial_elo, initial_wins, initial_losses]
@@ -100,6 +106,7 @@ def parse_text(text : str,
 
 if __name__ == '__main__':
     for message in [
+        "@SnappaBot /help asduvbayi"
         "@SnappaBot /add @Garrett Gordon",
         "@SnappaBot /score @Garrett Gordon @Andrei @Sebastian @Noah, 7-3",
         "@SnappaBot /lb",
@@ -108,7 +115,7 @@ if __name__ == '__main__':
     ]:
         print("\n" + "---"*10)
         print("Parsing:", message)
-        action, parameters = parse_text(message, 10)
+        action, parameters = parse_text(message, 10, 1500, 0 , 0, "Garrett Gordon")
 
         print(action)
         print(parameters)
