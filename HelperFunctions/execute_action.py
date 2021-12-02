@@ -2,28 +2,28 @@ import requests
 # API_URL = "https://snappa-bot-groupme-server.herokuapp.com"
 API_URL = "http://127.0.0.1:5000/"
 
-HELP_MESSAGE = "Welcome to SnappaBot.\nUseful Commands:\n@SnappaBot /add @<name> - adds a name\n@SnappaBot /score @<name> @<name> @<name> @<name>, <score_1> <score_2> - logs a score\n@SnappBot /lb - gets the leaderboard\n@SnappaBot /stats @<name> - gets stats for a player"
+HELP_MESSAGE = "Welcome to SnappaBot.\nUseful Commands:\n@SnappaBot /add @<name> - adds a name\n@SnappaBot /score @<name> @<name> @<name> @<name>, <score_1>-<score_2> - logs a score\n@SnappBot /lb - gets the leaderboard\n@SnappaBot /stats @<name> - gets stats for a player"
 
 
 def make_post_request(endpoint, data = None):
     try:
         response = requests.post(API_URL + endpoint, json = data)
-        response = response.text
+        res = response.text
     except:
-        response = "Error making request!"
-    return response
+        res = "Error making request!"
+    return res
 
 def make_get_request(endpoint, data = None):
     try:
         if data != None:
             response = requests.get(API_URL + endpoint, json = data)
-            response = response.text
+            res = response.text
         else:
             response = requests.get(API_URL + endpoint)
-            response = response.text
+            res = response.text
     except:
-        response = "Error making request!"
-    return response
+        res = "Error making request!"
+    return res
 
 def execute_action(action, parameters):
     """Executes an action specified by a groupme message
