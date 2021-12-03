@@ -17,8 +17,8 @@ PORT = 8080
 
 app = Flask(__name__)
 
-GROUPME_ID = 83775365 #TEST GROUP
-BOT_ID = "d9ce63918a5ba0a22008fa71dc"
+GROUPME_ID = 83875918 #TEST GROUP
+BOT_ID = "5ab40cd9c67947a6b28df80ebb"
 BASE_POST_URL = "https://api.groupme.com/v3/bots/post"
 BASE_GROUPS_URL = "https://api.groupme.com/v3/groups"
 ACCESS_TOKEN = "ttPm9qd6GIZp4Yxgq0IvOMfjfPwNYEVlrudzHREA"
