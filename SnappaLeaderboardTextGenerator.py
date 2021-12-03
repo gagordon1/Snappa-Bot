@@ -21,6 +21,7 @@ def generate_leaderboard_string(data: list, n : int):
 
     """
     data = [x for x in filter(lambda elt : elt[2] + elt[3] > MIN_GAMES_PLAYED, data)]
+    print(data)
     data_sorted = sorted(data, key = lambda x : x[1], reverse = True)[:n] #sort on ELO
     i = 1
     for entry in data_sorted:
