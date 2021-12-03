@@ -1,7 +1,6 @@
 import requests
 
-BASE_URL = "https://snappa-bot-groupme-server.herokuapp.com" #DEPLOYED
-# BASE_URL = "http://127.0.0.1:5000" #TEST
+from ApiConfig import API_URL as BASE_URL
 
 
 INITIAL_ELO = 1500
