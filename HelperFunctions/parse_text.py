@@ -99,7 +99,7 @@ def parse_text(text : str,
                 if name == "me":
                     return "get player data", [sender]
                 return "get player data", [name]
-            elif text != HELP_MESSAGE:
+            elif sender != BOT_NAME:
                 return "get message", []
             else:
                 return "none", []
