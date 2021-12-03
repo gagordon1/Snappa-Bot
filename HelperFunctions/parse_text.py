@@ -102,17 +102,13 @@ def parse_text(text : str,
                     return "get player data", [sender]
                 return "get player data", [name]
             elif sender != BOT_NAME:
-                print("flag1")
                 return "get message", []
             else:
-                print("flag4")
                 return "none", []
     except:
         return "error", []
     if bot_handle in text and sender != BOT_NAME:
-        print("flag3")
         return "get message", []
-    print("flag4")
     return "none", []
 
 if __name__ == '__main__':
