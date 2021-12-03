@@ -2,6 +2,7 @@
 LINE_WIDTH = 26
 LEADERBOARD_WIDTH = 33
 GROUPME_ADJUSTMENT_WIDTH = 3
+MIN_GAMES_PLAYED = 1
 
 def generate_leaderboard_string(data: list, n : int):
     """Generates a leaderboard string given a list of player data
@@ -19,6 +20,7 @@ def generate_leaderboard_string(data: list, n : int):
         A string of leaderboards matching the format described in messages.txt
 
     """
+    data = [x for x in filter(lambda elt : elt[2] + elt[1] > MIN_GAMES_PLAYED, data)]
     data_sorted = sorted(data, key = lambda x : x[1], reverse = True)[:n] #sort on ELO
     i = 1
     for entry in data_sorted:

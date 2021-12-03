@@ -151,10 +151,10 @@ if __name__ == '__main__':
     # db = GoogleSheetsDatabase(test = True)
 
     # ### NAIVE DATABASE TEST ###
-    # db = DictionaryDatabase()
+    db = DictionaryDatabase()
 
     ### NAIVE DATABASE TEST ###
-    db = MongoDatabase(test = True)
+    # db = MongoDatabase(test = True)
 
     print("\n")
     print("Testing Snappa Leaderboard...\n")
