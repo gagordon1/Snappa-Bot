@@ -1,5 +1,5 @@
 
-from execute_action import HELP_MESSAGE
+from HelperFunctions.execute_action import HELP_MESSAGE
 
 """
 PARSE STRUCTURE
