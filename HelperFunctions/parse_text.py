@@ -1,3 +1,6 @@
+
+from execute_action import HELP_MESSAGE
+
 """
 PARSE STRUCTURE
 
@@ -96,8 +99,10 @@ def parse_text(text : str,
                 if name == "me":
                     return "get player data", [sender]
                 return "get player data", [name]
-            else:
+            elif text != HELP_MESSAGE:
                 return "get message", []
+            else:
+                return "none", []
     except:
         return "error", []
     if bot_handle in text:
