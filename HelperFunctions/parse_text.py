@@ -69,8 +69,6 @@ def parse_text(text : str,
         and list of parameters in the second index
     """
     bot_handle = "@" + BOT_NAME
-    print("SENDER")
-    print(sender)
     try:
         if len(text) >= len(bot_handle) and text[:len(bot_handle)] == bot_handle:
             #addressing snappa bot
