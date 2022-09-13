@@ -1,5 +1,5 @@
 #READ groupme import json
-from flask import Flask, request, redirect, g, render_template, jsonify
+from flask import Flask, request
 import json
 import requests
 from Databases.DictionaryDatabase import DictionaryDatabase

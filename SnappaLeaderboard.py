@@ -1,7 +1,6 @@
 from SnappaLeaderboardTextGenerator import generate_leaderboard_string, generate_score_log_string
 from SnappaLeaderboardTextGenerator import generate_player_data_string
 from HelperFunctions.elo_functions import calculate_elo_change
-from tabulate import tabulate
 from Databases.MessageDatabase import messages
 import random
 import time
@@ -42,7 +41,7 @@ class SnappaLeaderboard:
         try:
             leaderboard = self.database.get_leaderboard()
         except:
-            raise Execption("Database could not be accessed!")
+            raise Exception("Database could not be accessed!")
 
         filtered = [x for x in filter(lambda elt : elt[0] in players,leaderboard)]
         ordered = sorted(sorted(filtered, key = lambda x : x[0].lower()),
